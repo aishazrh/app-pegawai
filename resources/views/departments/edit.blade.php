@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <title>Form Edit Departemen</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -86,22 +87,71 @@
 
         <section class="home" style="margin-top: 0.5rem">
             <div class="text">
-                @yield('content_jabatan')
+                <div>
+                    <h3 style="font-weight: bold;">
+                        Update Data Departemen
+                    </h3>
+                </div>
 
-                @yield('content')
+                <div class="card-form" style="margin: 10rem 15rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
+                                Edit Data Departemen
+                            </h4>
+                            <form action="{{ route('departments.update', $department->id) }}" method="POST"
+                                class="card-text">
+                                @csrf
+                                @method('PUT')
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="nama_departemen">
+                                                <h6>Nama Departemen:</h6>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="nama_departemen"
+                                                value="{{ old('nama_departemen', $department->nama_departemen) }}"
+                                                class="form-control form-control-card" style="width: 48rem"></td>
+                                    </tr>
+                                </table>
+
+                                <div style="text-align: center; width: 100%; margin-top: 1rem;">
+                                    <table style="border-collapse: separate;">
+                                        <tr>
+                                            <td>
+                                                <a href="{{ url('/departments') }}" class="btn btn-cancel"
+                                                    style="width: 100%">
+                                                    Batal
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                                    Update
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <footer class="footer text-center" style="margin-top: 2rem">
-                <div class="container">
+            <footer style="padding: 3rem;">
+                <div class="container text-center">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>
                 </div>
             </footer>
         </section>
-
-        <script src="{{ asset(path: 'js/script.js') }}"></script>
     </main>
 
+    <script src="{{ asset(path: 'js/script.js') }}"></script>
 </body>
 
 </html>

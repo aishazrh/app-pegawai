@@ -15,4 +15,14 @@ class Employee extends Model
         'tanggal_masuk',
         'status'
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(related: Department::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(\App\Models\Position::class, 'position_id', 'id');
+    }
 }

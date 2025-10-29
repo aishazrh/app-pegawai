@@ -8,7 +8,7 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Input Pegawai</title>
+    <title>Form Input Jabatan</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -90,103 +90,40 @@
                 <div class="text">
                     <div>
                         <h3 style="font-weight: bold;">
-                            Daftarkan Pegawai Baru
+                            Tambahkan Jabatan Baru
                         </h3>
                     </div>
 
-                    <div class="card-form" style="margin-left: 15rem">
+                    <div class="card-form" style="margin: 7rem 15rem">
                         <div class="card">
                             <div class="card-body">
                                 <h5
                                     style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Form Pegawai
+                                    Form Jabatan
                                 </h5>
-                                <form action="{{ route('employees.store') }}" method="POST" class="card-text">
+                                <form action="{{ route('positions.store') }}" method="POST" class="card-text">
                                     @csrf
                                     <table>
                                         <tr>
-                                            <td><label for="nama_lengkap">
-                                                    <h6>Nama Lengkap:</h6>
+                                            <td><label for="nama_jabatan">
+                                                    <h6>Nama Jabatan:</h6>
                                                 </label></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" id="nama_lengkap" name="nama_lengkap"
+                                                <input type="text" id="nama_jabatan" name="nama_jabatan"
                                                     class="form-control form-control-card" style="width: 48rem">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="email">
-                                                    <h6>Email:</h6>
+                                            <td><label for="gaji_pokok">
+                                                    <h6>Gaji Pokok:</h6>
                                                 </label></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="email" id="email" name="email"
+                                                <input type="number" id="gaji_pokok" name="gaji_pokok"
                                                     class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="nomor_telepon">
-                                                    <h6>Nomor Telepon:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="nomor_telepon" name="nomor_telepon"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="tanggal_lahir">
-                                                    <h6>Tanggal Lahir:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="alamat">
-                                                    <h6>Alamat:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <textarea id="alamat" name="alamat"
-                                                    class="form-control form-control-card"
-                                                    style="width: 48rem"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="tanggal_masuk">
-                                                    <h6>Tanggal Masuk:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="date" id="tanggal_masuk" name="tanggal_masuk"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="status">
-                                                    <h6>Status:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <select id="status" name="status" class="form-control form-control-card"
-                                                    style="width: 48rem">
-                                                    <option value="Aktif">
-                                                        <h6>Aktif</h6>
-                                                    </option>
-                                                    <option value="nonaktif">
-                                                        <h6>Nonaktif</h6>
-                                                    </option>
-                                                </select>
                                             </td>
                                         </tr>
                                     </table>
@@ -195,7 +132,7 @@
                                         <table style="border-collapse: separate;">
                                             <tr>
                                                 <td>
-                                                    <a href="{{ url('/employees') }}" class="btn btn-cancel"
+                                                    <a href="{{ url('/positions') }}" class="btn btn-cancel"
                                                         style="width: 100%">
                                                         Batal
                                                     </a>
@@ -209,13 +146,14 @@
                                         </table>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <footer class="footer text-center" style="margin-top: 3rem;">
+            <footer class="footer text-center">
                 <div class="container">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>
@@ -225,6 +163,7 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
+
 </body>
 
 </html>
