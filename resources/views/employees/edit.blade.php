@@ -173,6 +173,47 @@
 
                                 <tr>
                                     <td>
+                                        <label for="department_id">
+                                            <h6>Departemen:</h6>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="department_id" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Departemen</option>
+                                            @foreach($departments as $department)
+                                                <option value="{{ $department->id }}" 
+                                                    @if(old('department_id', $employee->department_id) == $department->id) selected @endif>
+                                                    {{ $department->nama_departemen }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="position_id">
+                                            <h6>Jabatan:</h6>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="position_id" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Jabatan</option>
+                                            @foreach($positions as $position)
+                                                <option value="{{ $position->id }}" 
+                                                    @if(old('position_id', $employee->jabatan_id) == $position->id) selected @endif>
+                                                    {{ $position->nama_jabatan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
                                         <label for="status">
                                             <h6>Status:</h6>
                                         </label>

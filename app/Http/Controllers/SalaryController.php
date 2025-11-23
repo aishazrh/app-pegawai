@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Models\Salary;
 use App\Models\Employee;
+use App\Models\Position;
 
 class SalaryController extends Controller
 {
@@ -16,14 +18,16 @@ class SalaryController extends Controller
 
     public function create()
     {
-        $employees = Employee::all();
-        return view('salaries.create', compact('employees'));
+        $employees = Employee::with(['department', 'position'])->get();
+        $positions = Position::all();
+
+        return view('salaries.create', compact('employees', 'positions'));
     }
 
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validated = $request->validate([
             'karyawan_id' => 'required|exists:employees,id',
             'bulan' => 'required|string|max:20',
             'gaji_pokok' => 'required|numeric|min:0',
@@ -31,6 +35,9 @@ class SalaryController extends Controller
             'potongan' => 'nullable|numeric|min:0',
         ]);
 
+        dd($validated);
+
+        $employee = Employee::find($request->karyawan_id);
         $total = $request->gaji_pokok + ($request->tunjangan ?? 0) - ($request->potongan ?? 0);
 
         Salary::create([
@@ -40,8 +47,9 @@ class SalaryController extends Controller
             'tunjangan' => $request->tunjangan,
             'potongan' => $request->potongan,
             'total_gaji' => $total,
+            'department_id' => $employee->department_id,
+            'jabatan_id' => $employee->jabatan_id,
         ]);
-
 
         return redirect()->route('salaries.index')->with('success', 'Data gaji berhasil ditambahkan!');
     }

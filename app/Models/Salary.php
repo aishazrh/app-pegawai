@@ -22,4 +22,14 @@ class Salary extends Model
     {
         return $this->belongsTo(Employee::class, 'karyawan_id');
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'jabatan_id');
+    }
 }

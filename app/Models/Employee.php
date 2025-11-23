@@ -13,16 +13,32 @@ class Employee extends Model
         'tanggal_lahir',
         'alamat',
         'tanggal_masuk',
-        'status'
+        'status',
+        'department_id',
+        'jabatan_id'
     ];
 
     public function department()
     {
-        return $this->belongsTo(related: Department::class);
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function position()
     {
-        return $this->belongsTo(\App\Models\Position::class, 'position_id', 'id');
+        return $this->belongsTo(Position::class, 'jabatan_id');
+    }
+
+    public function salary()
+    {
+        return $this->hasMany(Salary::class, 'karyawan_id');
+    }
+
+    public function getSalaryTotalAttribute()
+    {
+        $latestSalary = $this->salary()->latest()->first();
+        if ($latestSalary) {
+            return $latestSalary->gaji_pokok + $latestSalary->tunjangan - $latestSalary->potongan;
+        }
+        return 0;
     }
 }

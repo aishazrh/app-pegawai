@@ -15,7 +15,7 @@ class EmployeeController extends Controller
     {
         $search = $request->input('search');
 
-        $employees = Employee::with(['department', 'position'])
+        $employees = Employee::with(['department', 'position', 'salary'])
             ->when($search, function ($query, $search) {
                 $query->where('nama_lengkap', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
@@ -30,10 +30,13 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        $employees = Employee::all();
         $departments = Department::all();
         $positions = Position::all();
-        return view('employees.create', compact('departments', 'positions'));
+
+        return view('employees.create', compact('employees', 'departments', 'positions'));
     }
+
 
     public function store(Request $request)
     {
@@ -45,7 +48,12 @@ class EmployeeController extends Controller
             'alamat'         => 'required|string|max:255',
             'tanggal_masuk'  => 'required|date',
             'status'         => 'required|string|max:255',
+            'department_id'  => 'required|exists:departments,id',
+            'jabatan_id'     => 'required|exists:positions,id',
         ]);
+
+        // dd(vars: $validated);
+
         Employee::create($validated);
 
         return redirect()->route('employees.index');
@@ -53,7 +61,7 @@ class EmployeeController extends Controller
 
     public function show(string $id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::with(['department', 'position'])->findOrFail($id);
         return view('employees.show', compact('employee'));
     }
 
@@ -97,5 +105,15 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
         $employee->delete();
         return redirect()->route('employees.index');
+    }
+
+    public function getEmployee($id)
+    {
+        $employee = Employee::with(['department', 'position'])->find($id);
+        return response()->json([
+            'nama_lengkap' => $employee->nama_lengkap,
+            'department_id' => $employee->department_id,
+            'jabatan_id' => $employee->jabatan_id
+        ]);
     }
 }
