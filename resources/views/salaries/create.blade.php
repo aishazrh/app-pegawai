@@ -9,6 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
     <title>Form Input Gaji</title>
+
+    <script>
+        window.employees = @json($employees);
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -112,9 +116,25 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" id="karyawan_id" name="karyawan_id"
-                                                    class="form-control form-control-card" style="width: 48rem"
-                                                    required>
+                                                <select name="karyawan_id" id="karyawan_id" class="form-control"
+                                                    required onchange="updateEmployeeInfo()">
+                                                    <option value="" disabled selected>Pilih ID Karyawan</option>
+                                                    @foreach($employees as $employee)
+                                                        <option value="{{ $employee->id }}">{{ $employee->id }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><label for="karyawan_id">
+                                                    <h6>Nama Karyawan:</h6>
+                                                </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="employee_name" name="employee_name"
+                                                    class="form-control" readonly required>
                                             </td>
                                         </tr>
 
@@ -132,15 +152,39 @@
                                         </tr>
 
                                         <tr>
-                                            <td><label for="gaji_pokok">
+                                            <td><label for="department">
+                                                    <h6>Departemen:</h6>
+                                                </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="department" name="department"
+                                                    class="form-control" readonly required>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><label for="position">
+                                                    <h6>Jabatan:</h6>
+                                                </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="position" name="position" class="form-control"
+                                                    readonly required>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><label for="salary">
                                                     <h6>Gaji Pokok:</h6>
                                                 </label></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="number" id="gaji_pokok" name="gaji_pokok"
-                                                    class="form-control form-control-card" style="width: 48rem"
-                                                    required>
+                                                <input type="text" id="salary" name="salary" class="form-control"
+                                                    readonly required>
                                             </td>
                                         </tr>
 

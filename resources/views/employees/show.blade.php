@@ -145,6 +145,44 @@
                                     <td>{{ $employee->tanggal_masuk }}</td>
                                 </tr>
                                 <tr>
+                                    <th><label for="department_id">
+                                            <h6><strong>Departemen:</strong></h6>
+                                        </label></th>
+                                    <td>{{ $employee->department->nama_departemen }}</td>
+                                </tr>
+                                <tr>
+                                    <th><label for="position_id">
+                                            <h6><strong>Jabatan:</strong></h6>
+                                        </label></th>
+                                    <td>{{ $employee->position->nama_jabatan }}</td>
+                                </tr>
+                                <tr>
+                                    <th><label for="salary">
+                                            <h6><strong>Gaji Pokok:</strong></h6>
+                                        </label></th>
+                                    <td>
+                                        {{ $employee->salary->first()->gaji_pokok ?? 'N/A' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><label for="tunjangan">
+                                            <h6><strong>Tunjangan:</strong></h6>
+                                        </label></th>
+                                    <td>{{ $employee->salary->first()->tunjangan ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th><label for="potongan">
+                                            <h6><strong>Potongan:</strong></h6>
+                                        </label></th>
+                                    <td>{{ $employee->salary->first()->potongan ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th><label for="total_gaji">
+                                            <h6><strong>Total Gaji:</strong></h6>
+                                        </label></th>
+                                    <td>{{ $employee->salary->first()->total_gaji ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
                                     <th><label for="status">
                                             <h6><strong>Status:</strong></h6>
                                         </label></th>

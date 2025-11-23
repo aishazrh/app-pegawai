@@ -91,7 +91,7 @@
                 @yield('content')
             </div>
 
-            <footer class="footer text-center" style="margin-top: 2rem">
+            <footer class="footer text-center" style="margin-top: 22rem">
                 <div class="container">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>

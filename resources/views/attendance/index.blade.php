@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
-                    style="padding-top: 2rem; padding-bottom: 1rem;">
+                    style="padding-top: 0.5rem; padding-bottom: 1rem;">
 
                     <div class="d-flex flex-column flex-md-row align-items-md-center">
                         <form action="{{ route('attendance.index') }}" method="GET" class="me-md-2 mb-2 mb-md-0">
@@ -113,27 +113,61 @@
                         <table cellpadding="5" style="text-align: center; table-layout: auto;">
                             <thead>
                                 <tr>
-                                    <th><h6><strong>ID</strong></h6></th>
-                                    <th><h6><strong>ID Karyawan</strong></h6></th>
-                                    <th><h6><strong>Tanggal</strong></h6></th>
-                                    <th><h6><strong>Waktu Masuk</strong></h6></th>
-                                    <th><h6><strong>Waktu Keluar</strong></h6></th>
-                                    <th><h6><strong>Status Absensi</strong></h6></th>
-                                    <th><h6><strong>Created At</strong></h6></th>
-                                    <th><h6><strong>Updated At</strong></h6></th>
-                                    <th><h6><strong>Aksi</strong></h6></th>
+                                    <th>
+                                        <h6><strong>ID</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>ID Karyawan</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Tanggal</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Waktu Masuk</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Waktu Keluar</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Status Absensi</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Created At</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Updated At</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Aksi</strong></h6>
+                                    </th>
                             </thead>
                             <tbody>
                                 @foreach ($attendances as $attendance)
                                     <tr>
-                                        <td><h6>{{ $attendance->id }}</h6></td>
-                                        <td><h6>{{ $attendance->karyawan_id }}</h6></td>
-                                        <td><h6>{{ $attendance->tanggal }}</h6></td>
-                                        <td><h6>{{ $attendance->waktu_masuk }}</h6></td>
-                                        <td><h6>{{ $attendance->waktu_keluar }}</h6></td>
-                                        <td><h6>{{ $attendance->status_absensi }}</h6></td>
-                                        <td><h6>{{ $attendance->created_at }}</h6></td>
-                                        <td><h6>{{ $attendance->updated_at }}</h6></td>
+                                        <td>
+                                            <h6>{{ $attendance->id }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->karyawan_id }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->tanggal }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->waktu_masuk }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->waktu_keluar }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->status_absensi }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->created_at }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->updated_at }}</h6>
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"
@@ -181,7 +215,7 @@
                 </div>
             </div>
 
-            <footer class="footer text-center" style="margin-top: 23rem">
+            <footer class="footer text-center" style="margin-top: 19rem">
                 <div class="container">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>

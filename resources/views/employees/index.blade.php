@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="..."
         crossorigin="anonymous"></script>
+    <title>Employees</title>
 </head>
 
 @extends('master')
@@ -21,6 +22,7 @@
                 Daftar Pegawai
             </h3>
         </div>
+
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
             style="padding-top: 0.5rem; padding-bottom: 1rem;">
 
@@ -65,16 +67,13 @@
                                 <h6><strong>Email</strong></h6>
                             </th>
                             <th>
-                                <h6><strong>Nomor Telepon</strong></h6>
-                            </th>
-                            <th>
-                                <h6><strong>Tanggal Lahir</strong></h6>
-                            </th>
-                            <th>
                                 <h6><strong>Alamat</strong></h6>
                             </th>
                             <th>
-                                <h6><strong>Tanggal Masuk</strong></h6>
+                                <h6><strong>Departemen</strong></h6>
+                            </th>
+                            <th>
+                                <h6><strong>Jabatan</strong></h6>
                             </th>
                             <th>
                                 <h6><strong>Status</strong></h6>
@@ -97,16 +96,13 @@
                                     <h6>{{ $employee->email }}</h6>
                                 </td>
                                 <td>
-                                    <h6>{{ $employee->nomor_telepon }}</h6>
-                                </td>
-                                <td>
-                                    <h6>{{ $employee->tanggal_lahir }}</h6>
-                                </td>
-                                <td>
                                     <h6>{{ $employee->alamat }}</h6>
                                 </td>
                                 <td>
-                                    <h6>{{ $employee->tanggal_masuk }}</h6>
+                                    <h6>{{ $employee->department?->nama_departemen ?? 'N/A' }}</h6>
+                                </td>
+                                <td>
+                                    <h6>{{ $employee->position?->nama_jabatan ?? 'N/A' }}</h6>
                                 </td>
                                 <td>
                                     <h6>{{ $employee->status }}</h6>

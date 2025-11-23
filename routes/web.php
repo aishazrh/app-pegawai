@@ -18,3 +18,7 @@ Route::resource('salaries', SalaryController::class);
 Route::resource('attendance', AttendanceController::class);
 
 Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+Route::get('/employee/{id}', [EmployeeController::class, 'getEmployee']);
+Route::get('/salaries/create', [SalaryController::class, 'create'])->name('salaries.create');
+
+Route::post('/salaries', [SalaryController::class, 'store'])->name('salaries.store');

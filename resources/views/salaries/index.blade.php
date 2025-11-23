@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
-                    style="padding-top: 2rem; padding-bottom: 1rem;">
+                    style="padding-top: 0.5rem; padding-bottom: 1rem;">
                     <div class="d-flex flex-column flex-md-row align-items-md-center">
                         <div>
                             <a href="{{ url(path: '/employees') }}" class="btn btn-cancel" style="margin-right: 10px">

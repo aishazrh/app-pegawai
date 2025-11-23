@@ -172,6 +172,42 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><label for="department_id">
+                                                    <h6>Departemen:</h6>
+                                                </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select name="department_id" class="form-control" required>
+                                                    <option value="" disabled selected>Pilih Departemen</option>
+                                                    @foreach($departments as $department)
+                                                        <option value="{{ $department->id }}">
+                                                            {{ $department->nama_departemen }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="jabatan_id">
+                                                    <h6>Jabatan:</h6>
+                                                </label></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select name="jabatan_id" class="form-control"
+                                                    required onchange="updateSalary()">
+                                                    <option value="" disabled selected>Pilih Posisi</option>
+                                                    @foreach($positions as $position)
+                                                        <option value="{{ $position->id }}"
+                                                            data-salary="{{ $position->gaji_pokok }}">
+                                                            {{ $position->nama_jabatan }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><label for="status">
                                                     <h6>Status:</h6>
                                                 </label></td>

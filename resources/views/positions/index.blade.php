@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
-                    style="padding-top: 2rem; padding-bottom: 1rem;">
+                    style="padding-top: 0.5rem; padding-bottom: 1rem;">
                     <div class="d-flex flex-column flex-md-row align-items-md-center">
                         <div>
                             <a href="{{ url(path: '/employees') }}" class="btn btn-cancel" style="margin-right: 10px">
@@ -121,8 +121,6 @@
                                     <th><h6><strong>ID</strong></h6></th>
                                     <th><h6><strong>Nama Jabatan</strong></h6></th>
                                     <th><h6><strong>Gaji Pokok</strong></h6></th>
-                                    <th><h6><strong>Created At</strong></h6></th>
-                                    <th><h6><strong>Updated At</strong></h6></th>
                                     <th><h6><strong>Aksi</strong></h6></th>
                                 </tr>
                             </thead>
@@ -132,8 +130,6 @@
                                         <td><h6>{{ $position->id }}</h6></td>
                                         <td><h6>{{ $position->nama_jabatan }}</h6></td>
                                         <td><h6>Rp {{ number_format($position->gaji_pokok, 0, ',', '.') }}</h6></td>
-                                        <td><h6>{{ $position->created_at }}</h6></td>
-                                        <td><h6>{{ $position->updated_at }}</h6></td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"
