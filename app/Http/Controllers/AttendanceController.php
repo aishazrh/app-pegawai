@@ -12,25 +12,21 @@ class AttendanceController extends Controller
     {
         $search = $request->input('search');
 
-        $attendances = Attendance::with('employee')
+        $attendances = Attendance::with(['karyawan.department'])
             ->when($search, function ($query, $search) {
-                $query->whereHas('employee', function ($q) use ($search) {
-                    $q->where('nama_lengkap', 'like', "%{$search}%");
-                })
-                    ->orWhere('tanggal', 'like', "%{$search}%")
-                    ->orWhere('status_absensi', 'like', "%{$search}%");
+                $query->where('tanggal', 'like', "%{$search}%");
             })
-            ->orderBy('tanggal', 'desc')
-            ->paginate(10);
+            ->get();
 
         return view('attendance.index', compact('attendances', 'search'));
     }
 
     public function create()
     {
-        $employees = Employee::all();
+        $employees = Employee::with('department')->get();
         return view('attendance.create', compact('employees'));
     }
+
 
     public function store(Request $request)
     {
@@ -47,16 +43,19 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index')->with('success', 'Data absensi berhasil ditambahkan.');
     }
 
-    public function show($id)
+    public function show(string $id)
     {
-        $attendance = Attendance::with('employee')->findOrFail($id);
+        $attendance = Attendance::with(['karyawan.department'])->findOrFail($id);
+
         return view('attendance.show', compact('attendance'));
     }
 
     public function edit($id)
     {
         $attendance = Attendance::findOrFail($id);
-        $employees = Employee::all();
+
+        $employees = Employee::with('department')->get();
+
         return view('attendance.edit', compact('attendance', 'employees'));
     }
 

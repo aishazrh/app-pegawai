@@ -82,7 +82,9 @@ class EmployeeController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat'        => 'required|string|max:255',
             'tanggal_masuk' => 'required|date',
-            'status'        => 'required|string|max:50'
+            'status'        => 'required|string|max:50',
+            'department_id' => 'required|exists:departments,id',
+            'jabatan_id'    => 'required|exists:positions,id'
         ]);
 
         $employee = Employee::findOrFail($id);
@@ -94,7 +96,9 @@ class EmployeeController extends Controller
             'tanggal_lahir',
             'alamat',
             'tanggal_masuk',
-            'status'
+            'status',
+            'department_id',
+            'jabatan_id'
         ]));
 
         return redirect()->route('employees.index')->with('success', 'Data pegawai berhasil diperbarui!');

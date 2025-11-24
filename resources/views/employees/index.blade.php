@@ -76,6 +76,9 @@
                                 <h6><strong>Jabatan</strong></h6>
                             </th>
                             <th>
+                                <h6><strong>Total Gaji</strong></h6>
+                            </th>
+                            <th>
                                 <h6><strong>Status</strong></h6>
                             </th>
                             <th>
@@ -103,6 +106,9 @@
                                 </td>
                                 <td>
                                     <h6>{{ $employee->position?->nama_jabatan ?? 'N/A' }}</h6>
+                                </td>
+                                <td>
+                                    <h6>Rp {{ number_format(optional($employee->salary->first())->total_gaji ?? 0, 0, ',', '.') }}</h6>
                                 </td>
                                 <td>
                                     <h6>{{ $employee->status }}</h6>

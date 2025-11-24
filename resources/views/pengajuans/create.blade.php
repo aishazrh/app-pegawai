@@ -8,7 +8,7 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Input Kehadiran</title>
+    <title>Form Input Pengajuan</title>
 
     <script>
         window.employees = @json($employees);
@@ -100,7 +100,7 @@
                 <div class="text">
                     <div>
                         <h3 style="font-weight: bold;">
-                            Tambahkan Laporan Kehadiran Baru
+                            Tambahkan Pengajuan Baru
                         </h3>
 
                         <div class="card-form" style="margin: 3rem 15rem">
@@ -108,9 +108,23 @@
                                 <div class="card-body">
                                     <h5
                                         style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                        Form Kehadiran
+                                        Form Pengajuan
                                     </h5>
-                                    <form action="{{ route('attendance.store') }}" method="POST" class="card-text">
+
+                                    @if ($errors->any())
+                                        <div style="color: red;">
+                                            <ul>
+                                                <h5>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </h5>
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <form action="{{ route('pengajuans.store') }}" method="POST" class="card-text"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <table>
                                             <tr>
@@ -137,7 +151,7 @@
                                             <tr>
                                                 <td>
                                                     <input type="text" id="employee_name" name="employee_name"
-                                                        class="form-control" readonly required>
+                                                        class="form-control" readonly>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -148,67 +162,67 @@
                                             <tr>
                                                 <td>
                                                     <input type="text" id="department" name="department"
-                                                        class="form-control" readonly required>
+                                                        class="form-control" readonly>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><label for="tanggal">
-                                                        <h6>Tanggal:</h6>
+                                                <td><label for="position">
+                                                        <h6>Jabatan:</h6>
                                                     </label></td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="date" id="tanggal" name="tanggal"
-                                                        class="form-control form-control-card" style="width: 48rem">
+                                                    <input type="text" id="position" name="position"
+                                                        class="form-control" readonly>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><label for="waktu_masuk">
-                                                        <h6>Waktu Masuk:</h6>
+                                                <td><label for="tipe_pengajuan">
+                                                        <h6>Tipe Pengajuan:</h6>
                                                     </label></td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="time" id="waktu_masuk" name="waktu_masuk"
+                                                    <select id="tipe_pengajuan" name="tipe_pengajuan"
                                                         class="form-control form-control-card" style="width: 48rem">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="waktu_keluar">
-                                                        <h6>Waktu Keluar:</h6>
-                                                    </label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="time" id="waktu_keluar" name="waktu_keluar"
-                                                        class="form-control form-control-card" style="width: 48rem">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="status_absensi">
-                                                        <h6>Status Absensi:</h6>
-                                                    </label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select id="status_absensi" name="status_absensi"
-                                                        class="form-control form-control-card" style="width: 48rem">
-                                                        <option value="">-- Pilih Status --</option>
-                                                        <option value="Hadir">Hadir</option>
-                                                        <option value="Izin">Izin</option>
-                                                        <option value="Sakit">Sakit</option>
-                                                        <option value="Alfa">Alfa</option>
+                                                        <option value="">-- Pilih Tipe Pengajuan --</option>
+                                                        <option value="sakit">Sakit</option>
+                                                        <option value="izin">Izin</option>
+                                                        <option value="cuti">Cuti</option>
+                                                        <option value="peningkatan_gaji">Peningkatan Gaji</option>
+                                                        <option value="pengunduran_diri">Pengunduran Diri</option>
                                                     </select>
                                                 </td>
                                             </tr>
-
+                                            <tr>
+                                                <td><label for="tanggal_pengajuan">
+                                                        <h6>Tanggal Pengajuan:</h6>
+                                                    </label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan"
+                                                        class="form-control form-control-card" style="width: 48rem">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="dokumen">
+                                                        <h6>Upload Dokumen Pendukung:</h6>
+                                                    </label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="file" id="dokumen" name="dokumen"
+                                                        class="form-control form-control-card" style="width: 48rem">
+                                                </td>
+                                            </tr>
                                         </table>
 
                                         <div style="text-align: center; width: 100%; margin-top: 1rem;">
                                             <table style="border-collapse: separate;">
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ url('/attendance') }}" class="btn btn-cancel"
+                                                        <a href="{{ url('/pengajuans') }}" class="btn btn-cancel"
                                                             style="width: 100%">
                                                             Batal
                                                         </a>

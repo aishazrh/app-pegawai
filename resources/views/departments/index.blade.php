@@ -64,6 +64,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -119,10 +125,7 @@
                                         <h6><strong>Nama Departemen</strong></h6>
                                     </th>
                                     <th>
-                                        <h6><strong>Created At</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Updated At</strong></h6>
+                                        <h6><strong>Jumlah Staff</strong></h6>
                                     </th>
                                     <th>
                                         <h6><strong>Aksi</strong></h6>
@@ -138,10 +141,7 @@
                                             <h6>{{ $department->nama_departemen }}</h6>
                                         </td>
                                         <td>
-                                            <h6>{{ $department->created_at }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $department->updated_at }}</h6>
+                                            <h6>{{ $department->employees->count() }}</h6>
                                         </td>
                                         <td>
                                             <div class="dropdown position-static">

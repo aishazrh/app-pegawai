@@ -64,6 +64,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -120,6 +126,12 @@
                                         <h6><strong>ID Karyawan</strong></h6>
                                     </th>
                                     <th>
+                                        <h6><strong>Nama Karyawan</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Departemen</strong></h6>
+                                    </th>
+                                    <th>
                                         <h6><strong>Tanggal</strong></h6>
                                     </th>
                                     <th>
@@ -130,12 +142,6 @@
                                     </th>
                                     <th>
                                         <h6><strong>Status Absensi</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Created At</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Updated At</strong></h6>
                                     </th>
                                     <th>
                                         <h6><strong>Aksi</strong></h6>
@@ -151,6 +157,12 @@
                                             <h6>{{ $attendance->karyawan_id }}</h6>
                                         </td>
                                         <td>
+                                            <h6>{{ $attendance->karyawan->nama_lengkap ?? '-' }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ $attendance->karyawan->department->nama_departemen ?? '-' }}</h6>
+                                        </td>
+                                        <td>
                                             <h6>{{ $attendance->tanggal }}</h6>
                                         </td>
                                         <td>
@@ -161,12 +173,6 @@
                                         </td>
                                         <td>
                                             <h6>{{ $attendance->status_absensi }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $attendance->created_at }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $attendance->updated_at }}</h6>
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -215,7 +221,7 @@
                 </div>
             </div>
 
-            <footer class="footer text-center" style="margin-top: 19rem">
+            <footer class="footer text-center" style="margin-top: 25rem">
                 <div class="container">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>

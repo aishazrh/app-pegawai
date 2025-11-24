@@ -6,9 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Departemen</title>
+    <title>Settings</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -92,72 +90,51 @@
         </nav>
 
         <section class="home" style="margin-top: 0.5rem">
-            <div class="text">
-                <div>
-                    <h3 style="font-weight: bold;">
-                        Update Data Departemen
-                    </h3>
+            <div class="container" style="padding: 2rem;">
+                <h3 style="font-weight: bold;">Pengaturan Aplikasi</h3>
+
+                <!-- Theme Setting -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>Theme</h5>
+                        <form action="{{ route('settings.updateTheme') }}" method="POST">
+                            @csrf
+                            <select name="theme" class="form-control" onchange="this.form.submit()">
+                                <option value="light" {{ $theme == 'light' ? 'selected' : '' }}>Light Mode</option>
+                                <option value="dark" {{ $theme == 'dark' ? 'selected' : '' }}>Dark Mode</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="card-form" style="margin: 10rem 15rem">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                Edit Data Departemen
-                            </h4>
-                            <form action="{{ route('departments.update', $department->id) }}" method="POST"
-                                class="card-text">
-                                @csrf
-                                @method('PUT')
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <label for="nama_departemen">
-                                                <h6>Nama Departemen:</h6>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" name="nama_departemen"
-                                                value="{{ old('nama_departemen', $department->nama_departemen) }}"
-                                                class="form-control form-control-card" style="width: 48rem"></td>
-                                    </tr>
-                                </table>
+                <!-- Language Setting -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>Bahasa</h5>
+                        <form action="{{ route('settings.updateLanguage') }}" method="POST">
+                            @csrf
+                            <select name="language" class="form-control" onchange="this.form.submit()">
+                                <option value="id" {{ $language == 'id' ? 'selected' : '' }}>Indonesia</option>
+                                <option value="en" {{ $language == 'en' ? 'selected' : '' }}>English</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
 
-                                <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/departments') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Batal
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                    Update
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-
-                            </form>
-                        </div>
+                <!-- App Info -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>Info Aplikasi</h5>
+                        <p><strong>Nama Aplikasi:</strong> App Pegawai</p>
+                        <p><strong>Versi:</strong> 1.0.0</p>
+                        <p><strong>Developer:</strong> Aisha Zarrah</p>
                     </div>
                 </div>
             </div>
-
-            <footer style="padding: 3rem;">
-                <div class="container text-center">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
         </section>
     </main>
 
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>

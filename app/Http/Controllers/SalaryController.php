@@ -18,7 +18,7 @@ class SalaryController extends Controller
 
     public function create()
     {
-        $employees = Employee::with(['department', 'position'])->get();
+        $employees = Employee::with(['department', 'position', 'salary'])->get();
         $positions = Position::all();
 
         return view('salaries.create', compact('employees', 'positions'));
@@ -34,8 +34,6 @@ class SalaryController extends Controller
             'tunjangan' => 'nullable|numeric|min:0',
             'potongan' => 'nullable|numeric|min:0',
         ]);
-
-        dd($validated);
 
         $employee = Employee::find($request->karyawan_id);
         $total = $request->gaji_pokok + ($request->tunjangan ?? 0) - ($request->potongan ?? 0);
@@ -64,7 +62,8 @@ class SalaryController extends Controller
     public function edit($id)
     {
         $salary = Salary::findOrFail($id);
-        $employees = Employee::all();
+        $employees = Employee::with(['department', 'position', 'salary'])->get();
+
         return view('salaries.edit', compact('salary', 'employees'));
     }
 
