@@ -8,7 +8,7 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Detail Gaji</title>
+    <title>Detail Pengajuan</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -96,112 +96,103 @@
                 <div class="text">
                     <div>
                         <h3 style="font-weight: bold;">
-                            Detail Gaji
+                            Detail Pengajuan
                         </h3>
                     </div>
 
-                    <div class="card-form" style="margin: 2rem 15rem;">
+                    <div class="card-form" style="margin: 5rem 15rem;">
                         <div class="card text-center">
-                            <div class="card-body">
-                                <h4
-                                    style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Detail Gaji
-                                </h4>
+                            <div class="card-body" style="margin-top: 3rem">
                                 <table border="0" cellpadding="8" cellspacing="0">
                                     <tr>
+                                        <h5 style="padding-bottom: 2rem"><strong>Detail Laporan Pengajuan</strong></h5>
+                                    </tr>
+                                    <tr>
                                         <th><label for="id">
-                                                <h6><strong>ID</strong></h6>
+                                                <h6><strong>ID Pengajuan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->id }}</h6>
+                                            <h6>{{ $pengajuan->id }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th><label for="karyawan_id">
-                                                <h6><strong>ID Karyawan</strong></h6>
+                                                <h6><strong>ID Karyawan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan_id }}</h6>
+                                            <h6>{{ $pengajuan->karyawan_id }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th><label for="nama_karyawan">
-                                                <h6><strong>Nama Karyawan</strong></h6>
+                                        <th><label for="karyawan_id">
+                                                <h6><strong>Nama Karyawan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->nama_lengkap }}</h6>
+                                            <h6>{{ $pengajuan->karyawan->nama_lengkap }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th><label for="department">
-                                                <h6><strong>Departemen</strong></h6>
+                                                <h6><strong>Departemen:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->department->nama_departemen }}</h6>
+                                            <h6>{{ $pengajuan->karyawan->department->nama_departemen }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th><label for="position">
-                                                <h6><strong>Jabatan</strong></h6>
+                                                <h6><strong>Jabatan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->position->nama_jabatan }}</h6>
+                                            <h6>{{ $pengajuan->karyawan->position->nama_jabatan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th><label for="bulan">
-                                                <h6><strong>Bulan</strong></h6>
+                                        <th><label for="tipe_pengajuan">
+                                                <h6><strong>Tipe Pengajuan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->bulan }}</h6>
+                                            <h6>{{ $pengajuan->tipe_pengajuan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th><label for="gaji_pokok">
-                                                <h6><strong>Gaji Pokok</strong></h6>
+                                        <th><label for="tanggal_pengajuan">
+                                                <h6><strong>Tanggal Pengajuan:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->gaji_pokok, 0, ',', '.') }}</h6>
+                                            <h6>{{ $pengajuan->tanggal_pengajuan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th><label for="tunjangan">
-                                                <h6><strong>Tunjangan</strong></h6>
+                                        <th><label for="dokumen">
+                                                <h6><strong>Dokumen Pendukung:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->tunjangan, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="potongan">
-                                                <h6><strong>Potongan</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($salary->potongan, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="total_gaji">
-                                                <h6><strong>Total Gaji</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($salary->total_gaji, 0, ',', '.') }}</h6>
+                                            <h6>
+                                                @if($pengajuan->dokumen)
+                                                    <a href="{{ Storage::url($pengajuan->dokumen) }}" target="_blank"
+                                                        style="font-size: medium">Lihat
+                                                        Dokumen</a>
+                                                @else
+                                                    -
+                                                @endif
+                                            </h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th><label for="created_at">
-                                                <h6><strong>Created At</strong></h6>
+                                                <h6><strong>Created At:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->created_at }}</h6>
+                                            <h6>{{ $pengajuan->created_at }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th><label for="updated_at">
-                                                <h6><strong>Updated At</strong></h6>
+                                                <h6><strong>Updated At:</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->updated_at }}</h6>
+                                            <h6>{{ $pengajuan->updated_at }}</h6>
                                         </td>
                                     </tr>
                                 </table>
@@ -210,7 +201,7 @@
                                     <table style="border-collapse: separate;">
                                         <tr>
                                             <td>
-                                                <a href="{{ url('/salaries') }}" class="btn btn-cancel"
+                                                <a href="{{ url('/pengajuans') }}" class="btn btn-cancel"
                                                     style="width: 100%">
                                                     Kembali
                                                 </a>
@@ -221,16 +212,14 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
 
-            <footer class="footer text-center">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
+                <footer class="footer text-center">
+                    <div class="container">
+                        <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
+                        <small>Developed by Aisha Zarrah </small>
+                    </div>
+                </footer>
         </section>
     </main>
 

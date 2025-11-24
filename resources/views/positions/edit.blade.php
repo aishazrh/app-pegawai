@@ -66,6 +66,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">

@@ -66,6 +66,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -118,8 +124,16 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <th><label for="jumlah_staff">
+                                                <h6><strong>Jumlah Staff:</strong></h6>
+                                            </label></th>
+                                        <td>
+                                            <h6>{{ $department->employees->count() }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th><label for="created_at">
-                                                <h6><strong>ICreated At:</strong></h6>
+                                                <h6><strong>Created At:</strong></h6>
                                             </label></th>
                                         <td>
                                             <h6>{{ $department->created_at }}</h6>

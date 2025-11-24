@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <title>Salaries</title>
+    <title>Reports</title>
 </head>
 
 <body>
@@ -93,35 +93,29 @@
             <div class="text">
                 <div>
                     <h3 style="font-weight: bold;">
-                        Daftar Gaji Pegawai
+                        Daftar Laporan
                     </h3>
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
                     style="padding-top: 0.5rem; padding-bottom: 1rem;">
                     <div class="d-flex flex-column flex-md-row align-items-md-center">
-                        <div>
-                            <a href="{{ url(path: '/employees') }}" class="btn btn-cancel" style="margin-right: 10px">
-                                Back to Employees
-                            </a>
-                        </div>
-
-                        <form action="{{ route('salaries.index') }}" method="GET" class="me-md-2 mb-2 mb-md-0">
+                        <form action="{{ route('reports.index') }}" method="GET" class="me-md-2 mb-2 mb-md-0">
                             <input type="text" name="search" placeholder="Search" value="{{ $search ?? '' }}"
-                                class="form-control" style="width: 59rem;">
+                                class="form-control" style="width: 70rem;">
                         </form>
 
                         <div>
-                            <a href="{{ url(path: '/salaries/create') }}" class="btn btn-primary">
-                                Add Salary
+                            <a href="{{ url(path: '/reports/create') }}" class="btn btn-primary">
+                                Add Report
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <div class="card-body text-center">
-                        <table cellpadding="5">
+                    <div class="card-body">
+                        <table cellpadding="5" style="text-align: center; table-layout: auto;">
                             <thead>
                                 <tr>
                                     <th>
@@ -134,93 +128,74 @@
                                         <h6><strong>Nama Karyawan</strong></h6>
                                     </th>
                                     <th>
+                                        <h6><strong>Departemen</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Jabatan</strong></h6>
+                                    </th>
+                                    <th>
+                                        <h6><strong>Rating Kinerja</strong></h6>
+                                    </th>
+                                    <th>
                                         <h6><strong>Bulan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Gaji Pokok</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Tunjangan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Potongan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Total Gaji</strong></h6>
                                     </th>
                                     <th>
                                         <h6><strong>Aksi</strong></h6>
                                     </th>
-                                </tr>
                             </thead>
                             <tbody>
-                                @foreach ($salaries as $salary)
+                                @foreach ($reports as $report)
                                     <tr>
                                         <td>
-                                            <h6>{{ $salary->id }}</h6>
+                                            <h6>{{ $report->id }}</h6>
                                         </td>
                                         <td>
-                                            <h6>{{ $salary->karyawan_id }}</h6>
+                                            <h6>{{ $report->employee_id }}</h6>
                                         </td>
                                         <td>
-                                            <h6>{{ $salary->karyawan->nama_lengkap }}</h6>
+                                            <h6>{{ $report->employee?->nama_lengkap ?? 'N/A' }}</h6>
                                         </td>
                                         <td>
-                                            <h6>{{ $salary->bulan }}</h6>
+                                            <h6>{{ $report->employee->department?->nama_departemen ?? 'N/A' }}</h6>
                                         </td>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->gaji_pokok, 0, ',', '.') }}</h6>
+                                            <h6>{{ $report->employee->position?->nama_jabatan ?? 'N/A' }}</h6>
                                         </td>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->tunjangan, 0, ',', '.') }}</h6>
+                                            <h6>{{ $report->rating_kinerja }}</h6>
                                         </td>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->potongan, 0, ',', '.') }}</h6>
+                                            <h6>{{ $report->bulan }}</h6>
                                         </td>
                                         <td>
-                                            <h6>Rp
-                                                {{ number_format($salary->gaji_pokok + $salary->tunjangan - $salary->potongan, 0, ',', '.') }}
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
+                                            <div class="dropdown position-static">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     More
                                                 </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('salaries.show', $salary->id) }}">
-                                                            Detail
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('salaries.edit', $salary->id) }}">
-                                                            Edit
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('salaries.destroy', $salary->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')"
-                                                            style="display: block; padding: 0;">
 
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item"
+                                                            href="{{ route('reports.show', $report->id) }}">Detail</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item"
+                                                            href="{{ route('reports.edit', $report->id) }}">Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{{ route('reports.destroy', $report->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                                             @csrf
                                                             @method('DELETE')
-
                                                             <button type="submit"
-                                                                class="dropdown-item text-danger dropdown-item-delete"
-                                                                style="width: 100%; border: none; text-align: left; background: none; cursor: pointer;">
-                                                                Delete
-                                                            </button>
+                                                                class="dropdown-item dropdown-item-delete text-danger">Delete</button>
                                                         </form>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -228,7 +203,7 @@
                 </div>
             </div>
 
-            <footer class="footer text-center" style="margin-top: 23rem">
+            <footer class="footer text-center" style="margin-top: 22rem">
                 <div class="container">
                     <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
                     <small>Developed by Aisha Zarrah </small>
@@ -239,10 +214,9 @@
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                 crossorigin="anonymous"></script>
         </section>
+
+        <script src="{{ asset(path: 'js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
-
 </body>
 
 </html>

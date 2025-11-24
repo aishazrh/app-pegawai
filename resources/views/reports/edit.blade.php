@@ -8,16 +8,10 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Gaji</title>
+    <title>Form Edit Laporan</title>
 
     <script>
         window.employees = @json($employees);
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            updateEmployeeInfo();
-        });
     </script>
 </head>
 
@@ -105,7 +99,7 @@
             <div class="text">
                 <div>
                     <h3 style="font-weight: bold;">
-                        Update Info Gaji
+                        Update Info Laporan
                     </h3>
 
                     <div class="card-form" style="margin: 3rem 15rem">
@@ -113,9 +107,9 @@
                             <div class="card-body">
                                 <h4
                                     style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Edit Data Gaji
+                                    Edit Data Laporan
                                 </h4>
-                                <form action="{{ route('salaries.update', $salary->id) }}" method="POST"
+                                <form action="{{ route('reports.update', $report->id) }}" method="POST"
                                     class="card-text">
                                     @csrf
                                     @method('PUT')
@@ -129,9 +123,8 @@
                                             <td>
                                                 <select name="karyawan_id" id="karyawan_id" class="form-control"
                                                     required onchange="updateEmployeeInfo()">
-                                                    <option value="" disabled selected>Pilih ID Karyawan</option>
                                                     @foreach($employees as $employee)
-                                                        <option value="{{ $employee->id }}" {{ old('karyawan_id', $salary->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                                        <option value="{{ $employee->id }}" {{ old('karyawan_id', $report->karyawan_id) == $employee->id ? 'selected' : '' }}>
                                                             {{ $employee->id }}
                                                         </option>
                                                     @endforeach
@@ -147,18 +140,6 @@
                                             <td>
                                                 <input type="text" id="employee_name" name="employee_name"
                                                     class="form-control" readonly required>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="bulan">
-                                                    <h6>Bulan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="month" name="bulan"
-                                                    value="{{ old('bulan', $salary->bulan) }}"
-                                                    class="form-control form-control-card" style="width: 48rem">
                                             </td>
                                         </tr>
                                         <tr>
@@ -184,37 +165,33 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="gaji_pokok">
-                                                    <h6>Gaji Pokok:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="number" name="gaji_pokok"
-                                                    value="{{ old('gaji_pokok', $salary->gaji_pokok) }}"
-                                                    class="form-control form-control-card" style="width: 48rem"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="tunjangan">
-                                                    <h6>Tunjangan:</h6>
+                                            <td><label for="bulan">
+                                                    <h6>Bulan:</h6>
                                                 </label></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="number" name="tunjangan"
-                                                    value="{{ old('tunjangan', $salary->tunjangan) }}"
+                                                <input type="month" name="bulan"
+                                                    value="{{ old('bulan', $report->bulan) }}"
                                                     class="form-control form-control-card" style="width: 48rem">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="potongan">
-                                                    <h6>Potongan:</h6>
+                                            <td><label for="rating_kinerja">
+                                                    <h6>Rating Kinerja:</h6>
                                                 </label></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="number" name="potongan"
-                                                    value="{{ old('potongan', $salary->potongan) }}"
-                                                    class="form-control form-control-card" style="width: 48rem">
+                                                <input type="range" id="rating_kinerja" name="rating_kinerja" min="1"
+                                                    max="10" value="5" class="form-range" style="width: 48rem;"
+                                                    oninput="document.getElementById('rating_value').innerText = this.value"
+                                                    required>
+                                                <div style="font-weight: bold; margin-top: 0.5rem;">
+                                                    <h6>
+                                                        Rating: <span id="rating_value">5</span>
+                                                    </h6>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -223,7 +200,7 @@
                                         <table style="border-collapse: separate;">
                                             <tr>
                                                 <td>
-                                                    <a href="{{ url('/salaries') }}" class="btn btn-cancel"
+                                                    <a href="{{ url('/reports') }}" class="btn btn-cancel"
                                                         style="width: 100%">
                                                         Batal
                                                     </a>
@@ -251,11 +228,9 @@
                 </div>
             </footer>
         </section>
+
+        <script src="{{ asset(path: 'js/script.js') }}"></script>
     </main>
-</body>
-
-<script src="{{ asset(path: 'js/script.js') }}"></script>
-
 </body>
 
 </html>

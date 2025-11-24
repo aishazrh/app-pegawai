@@ -8,7 +8,7 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Kehadiran</title>
+    <title>Form Edit Pengajuan</title>
 
     <script>
         window.employees = @json($employees);
@@ -105,7 +105,7 @@
             <div class="text">
                 <div>
                     <h3 style="font-weight: bold;">
-                        Update Laporan Kehadiran
+                        Update Pengajuan
                     </h3>
                 </div>
 
@@ -113,10 +113,10 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                Edit Data Kehadiran
+                                Edit Data Pengajuan
                             </h4>
-                            <form action="{{ route('attendance.update', $attendance->id) }}" method="POST"
-                                class="card-text">
+                            <form action="{{ route('pengajuans.update', $pengajuan->id) }}" method="POST"
+                                class="card-text" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <table>
@@ -131,7 +131,7 @@
                                                 onchange="updateEmployeeInfo()">
                                                 <option value="" disabled selected>Pilih ID Karyawan</option>
                                                 @foreach($employees as $employee)
-                                                    <option value="{{ $employee->id }}" {{ old('karyawan_id', $attendance->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                                    <option value="{{ $employee->id }}" {{ old('karyawan_id', $pengajuan->karyawan_id) == $employee->id ? 'selected' : '' }}>
                                                         {{ $employee->id }}
                                                     </option>
                                                 @endforeach
@@ -146,81 +146,56 @@
                                     <tr>
                                         <td>
                                             <input type="text" id="employee_name" name="employee_name"
-                                                class="form-control" readonly required>
+                                                class="form-control" readonly>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label for="department">
-                                                <h6>Departemen:</h6>
+                                        <td><label for="tipe_pengajuan">
+                                                <h6>Tipe Pengajuan:</h6>
                                             </label></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" id="department" name="department" class="form-control"
-                                                readonly required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="tanggal">
-                                                <h6>Tanggal:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="date" name="tanggal"
-                                                value="{{ old('tanggal', $attendance->tanggal) }}"
+                                            <select id="tipe_pengajuan" name="tipe_pengajuan"
                                                 class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="waktu_masuk">
-                                                <h6>Waktu Masuk:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="time" name="waktu_masuk"
-                                                value="{{ old('waktu_masuk', $attendance->waktu_masuk) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="waktu_keluar">
-                                                <h6>Waktu Keluar:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="time" name="waktu_keluar"
-                                                value="{{ old('waktu_keluar', $attendance->waktu_keluar) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="status_absensi">
-                                                <h6>Status Absensi:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="status_absensi" name="status_absensi"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                                <option value="">-- Pilih Status --</option>
-
-                                                @php
-                                                    $currentStatus = old('status_absensi', $attendance->status_absensi);
-                                                @endphp
-
-                                                <option value="Hadir" {{ $currentStatus == 'Hadir' ? 'selected' : '' }}>
-                                                    Hadir</option>
-                                                <option value="Izin" {{ $currentStatus == 'Izin' ? 'selected' : '' }}>Izin
-                                                </option>
-                                                <option value="Sakit" {{ $currentStatus == 'Sakit' ? 'selected' : '' }}>
+                                                <option value="">-- Pilih Tipe Pengajuan --</option>
+                                                @php $currentStatus = old('tipe_pengajuan', $pengajuan->tipe_pengajuan); @endphp
+                                                <option value="sakit" {{ $currentStatus == 'sakit' ? 'selected' : '' }}>
                                                     Sakit</option>
-                                                <option value="Alfa" {{ $currentStatus == 'Alfa' ? 'selected' : '' }}>Alfa
+                                                <option value="izin" {{ $currentStatus == 'izin' ? 'selected' : '' }}>Izin
                                                 </option>
+                                                <option value="cuti" {{ $currentStatus == 'cuti' ? 'selected' : '' }}>Cuti
+                                                </option>
+                                                <option value="peningkatan_gaji" {{ $currentStatus == 'peningkatan_gaji' ? 'selected' : '' }}>Peningkatan Gaji</option>
+                                                <option value="pengunduran_diri" {{ $currentStatus == 'pengunduran_diri' ? 'selected' : '' }}>Pengunduran Diri</option>
                                             </select>
-
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="tanggal_pengajuan">
+                                                <h6>Tanggal Pengajuan:</h6>
+                                            </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="date" name="tanggal_pengajuan"
+                                                value="{{ old('tanggal_pengajuan', $pengajuan->tanggal_pengajuan) }}"
+                                                class="form-control form-control-card" style="width: 48rem">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="dokumen">
+                                                <h6>Dokumen Pendukung:</h6>
+                                            </label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="file" name="dokumen" class="form-control form-control-card"
+                                                style="width: 48rem">
+                                            @if($pengajuan->dokumen)
+                                                <h6>File saat ini: <a href="{{ Storage::url($pengajuan->dokumen) }}"
+                                                        target="_blank">Lihat Dokumen</a></h6>
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -229,7 +204,7 @@
                                     <table style="border-collapse: separate;">
                                         <tr>
                                             <td>
-                                                <a href="{{ url('/attendance') }}" class="btn btn-cancel"
+                                                <a href="{{ url('/pengajuans') }}" class="btn btn-cancel"
                                                     style="width: 100%">
                                                     Batal
                                                 </a>

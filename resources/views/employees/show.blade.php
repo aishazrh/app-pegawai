@@ -66,6 +66,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -161,26 +167,55 @@
                                             <h6><strong>Gaji Pokok:</strong></h6>
                                         </label></th>
                                     <td>
-                                        {{ $employee->salary->first()->gaji_pokok ?? 'N/A' }}
+                                        @php
+                                            $salaryData = $employee->salary->first();
+                                            $gajiPokok = $salaryData->gaji_pokok ?? 0;
+                                        @endphp
+
+                                        Rp {{ number_format($gajiPokok, 0, ',', '.') }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><label for="tunjangan">
                                             <h6><strong>Tunjangan:</strong></h6>
                                         </label></th>
-                                    <td>{{ $employee->salary->first()->tunjangan ?? 'N/A' }}</td>
+                                    <td>
+                                        @php
+                                            $tunjangan = $salaryData->tunjangan ?? 0;
+                                        @endphp
+
+                                        Rp {{ number_format($tunjangan, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><label for="potongan">
                                             <h6><strong>Potongan:</strong></h6>
                                         </label></th>
-                                    <td>{{ $employee->salary->first()->potongan ?? 'N/A' }}</td>
+                                    <td>
+                                        @php
+                                            $potongan = $salaryData->potongan ?? 0;
+                                        @endphp
+
+                                        Rp {{ number_format($potongan, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><label for="total_gaji">
                                             <h6><strong>Total Gaji:</strong></h6>
                                         </label></th>
-                                    <td>{{ $employee->salary->first()->total_gaji ?? 'N/A' }}</td>
+                                    <td>
+                                        @php
+                                            $salaryData = $employee->salary->first();
+
+                                            $gaji_pokok = $salaryData->gaji_pokok ?? 0;
+                                            $tunjangan = $salaryData->tunjangan ?? 0;
+                                            $potongan = $salaryData->potongan ?? 0;
+
+                                            $total_gaji = $gaji_pokok + $tunjangan - $potongan;
+                                        @endphp
+
+                                        Rp {{ number_format($total_gaji, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><label for="status">

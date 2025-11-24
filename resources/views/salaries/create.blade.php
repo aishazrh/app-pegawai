@@ -70,6 +70,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -127,7 +133,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td><label for="karyawan_id">
+                                            <td><label for="nama_karyawan">
                                                     <h6>Nama Karyawan:</h6>
                                                 </label></td>
                                         </tr>
@@ -160,7 +166,6 @@
                                             <td>
                                                 <input type="text" id="department" name="department"
                                                     class="form-control" readonly required>
-
                                             </td>
                                         </tr>
 
@@ -183,7 +188,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" id="salary" name="salary" class="form-control"
+                                                <input type="text" id="salary" name="gaji_pokok" class="form-control"
                                                     readonly required>
                                             </td>
                                         </tr>

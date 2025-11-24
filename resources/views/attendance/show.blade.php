@@ -66,6 +66,12 @@
                             <span class="text nav-text">Reports</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="/pengajuans">
+                            <i class='bx bx-folder icon'></i>
+                            <span class="text nav-text">Requests</span>
+                        </a>
+                    </li>
                 </div>
 
                 <div class="bottom-content">
@@ -115,6 +121,30 @@
                                             </label></th>
                                         <td>
                                             <h6>{{ $attendance->karyawan_id }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="karyawan_id">
+                                                <h6><strong>Nama Karyawan:</strong></h6>
+                                            </label></th>
+                                        <td>
+                                            <h6>{{ $attendance->karyawan->nama_lengkap }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="department">
+                                                <h6><strong>Departemen:</strong></h6>
+                                            </label></th>
+                                        <td>
+                                            <h6>{{ $attendance->karyawan->department->nama_departemen }}</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="karyawan_id">
+                                                <h6><strong>Jabatan:</strong></h6>
+                                            </label></th>
+                                        <td>
+                                            <h6>{{ $attendance->karyawan->position->nama_jabatan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>

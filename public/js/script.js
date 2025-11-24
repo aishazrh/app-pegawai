@@ -19,15 +19,6 @@ modeSwitch.addEventListener("click", ()=> {
     }
 });
 
-// function updateSalary() {
-//     var positionSelect = document.getElementById("jabatan_id");
-//     var selectedOption = positionSelect.options[positionSelect.selectedIndex];
-
-//     var salary = selectedOption.getAttribute("data-salary");
-
-//     document.getElementById("salary").value = salary;
-// }
-
 function updateSalary(positionId) {
     var position = window.positions.find(pos => pos.id == positionId);
 
@@ -41,17 +32,27 @@ document.querySelector('form').addEventListener('submit', function(e) {
     console.log('Form is being submitted');
 });
 
-
 function updateEmployeeInfo() {
-    var employeeSelect = document.getElementById("karyawan_id");
-    var selectedEmployeeId = employeeSelect.value;
+    const select = document.getElementById('karyawan_id');
+    const employeeId = select.value;
 
-    var selectedEmployee = window.employees.find(employee => employee.id == selectedEmployeeId);
+    const employee = window.employees.find(emp => emp.id == employeeId);
 
-    if (selectedEmployee) {
-        document.getElementById("employee_name").value = selectedEmployee.nama_lengkap;
-        document.getElementById("department").value = selectedEmployee.department ? selectedEmployee.department.nama_departemen : 'N/A';
-        document.getElementById("position").value = selectedEmployee.position ? selectedEmployee.position.nama_jabatan : 'N/A';
-        document.getElementById("salary").value = selectedEmployee.position ? selectedEmployee.position.gaji_pokok : '0';
+    if (employee) {
+        document.getElementById('employee_name').value = employee.nama_lengkap ?? '';
+        document.getElementById('department').value = employee.department?.nama_departemen ?? '';
+        document.getElementById('position').value = employee.position?.nama_jabatan ?? '';
+        document.getElementById('salary').value = employee.position?.gaji_pokok ?? '';
+    } else {
+        document.getElementById('employee_name').value = '';
+        document.getElementById('department').value = '';
+        document.getElementById('position').value = '';
+        document.getElementById('salary').value = '';
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        updateEmployeeInfo();
+    }, 50);
+});

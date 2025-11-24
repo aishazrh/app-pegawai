@@ -65,6 +65,12 @@
                         <span class="text nav-text">Reports</span>
                     </a>
                 </li>
+                <li class="nav-link">
+                    <a href="/pengajuans">
+                        <i class='bx bx-folder icon'></i>
+                        <span class="text nav-text">Requests</span>
+                    </a>
+                </li>
             </div>
 
             <div class="bottom-content">
@@ -200,15 +206,15 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <select name="position_id" class="form-control" required>
-                                            <option value="" disabled selected>Pilih Jabatan</option>
-                                            @foreach($positions as $position)
-                                                <option value="{{ $position->id }}" 
-                                                    @if(old('position_id', $employee->jabatan_id) == $position->id) selected @endif>
-                                                    {{ $position->nama_jabatan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <select name="jabatan_id" class="form-control" required>
+                                        <option value="" disabled selected>Pilih Jabatan</option>
+                                        @foreach($positions as $position)
+                                            <option value="{{ $position->id }}" 
+                                                @if(old('jabatan_id', $employee->jabatan_id) == $position->id) selected @endif>
+                                                {{ $position->nama_jabatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     </td>
                                 </tr>
                                 

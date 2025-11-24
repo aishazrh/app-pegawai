@@ -8,7 +8,7 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Detail Gaji</title>
+    <title>Detail Laporan</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -96,7 +96,7 @@
                 <div class="text">
                     <div>
                         <h3 style="font-weight: bold;">
-                            Detail Gaji
+                            Detail Laporan
                         </h3>
                     </div>
 
@@ -105,7 +105,7 @@
                             <div class="card-body">
                                 <h4
                                     style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Detail Gaji
+                                    Detail Laporan
                                 </h4>
                                 <table border="0" cellpadding="8" cellspacing="0">
                                     <tr>
@@ -113,7 +113,7 @@
                                                 <h6><strong>ID</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->id }}</h6>
+                                            <h6>{{ $report->id }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -121,7 +121,7 @@
                                                 <h6><strong>ID Karyawan</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan_id }}</h6>
+                                            <h6>{{ $report->employee->id }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -129,7 +129,7 @@
                                                 <h6><strong>Nama Karyawan</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->nama_lengkap }}</h6>
+                                            <h6>{{ $report->employee->nama_lengkap }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -137,7 +137,7 @@
                                                 <h6><strong>Departemen</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->department->nama_departemen }}</h6>
+                                            <h6>{{ $report->employee->department->nama_departemen }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -145,7 +145,7 @@
                                                 <h6><strong>Jabatan</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->karyawan->position->nama_jabatan }}</h6>
+                                            <h6>{{ $report->employee->position->nama_jabatan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -153,39 +153,15 @@
                                                 <h6><strong>Bulan</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->bulan }}</h6>
+                                            <h6>{{ $report->bulan }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th><label for="gaji_pokok">
-                                                <h6><strong>Gaji Pokok</strong></h6>
+                                        <th><label for="rating_kinerja">
+                                                <h6><strong>Rating Kinerja</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>Rp {{ number_format($salary->gaji_pokok, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="tunjangan">
-                                                <h6><strong>Tunjangan</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($salary->tunjangan, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="potongan">
-                                                <h6><strong>Potongan</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($salary->potongan, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="total_gaji">
-                                                <h6><strong>Total Gaji</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($salary->total_gaji, 0, ',', '.') }}</h6>
+                                            <h6>{{ $report->rating_kinerja }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -193,7 +169,7 @@
                                                 <h6><strong>Created At</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->created_at }}</h6>
+                                            <h6>{{ $report->created_at }}</h6>
                                         </td>
                                     </tr>
                                     <tr>
@@ -201,7 +177,7 @@
                                                 <h6><strong>Updated At</strong></h6>
                                             </label></th>
                                         <td>
-                                            <h6>{{ $salary->updated_at }}</h6>
+                                            <h6>{{ $report->updated_at }}</h6>
                                         </td>
                                     </tr>
                                 </table>
@@ -210,7 +186,7 @@
                                     <table style="border-collapse: separate;">
                                         <tr>
                                             <td>
-                                                <a href="{{ url('/salaries') }}" class="btn btn-cancel"
+                                                <a href="{{ url('/reports') }}" class="btn btn-cancel"
                                                     style="width: 100%">
                                                     Kembali
                                                 </a>
@@ -235,7 +211,6 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
-
 </body>
 
 </html>
