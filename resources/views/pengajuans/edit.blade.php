@@ -1,239 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Edit Request's Data</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Pengajuan</title>
+    <main>
+        <div class="pt-16">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Edit Request's Data</p>
+                        </div>
 
-    <script>
-        window.employees = @json($employees);
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            updateEmployeeInfo();
-        });
-    </script>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
-
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
-
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="text">
-                <div>
-                    <h3 style="font-weight: bold;">
-                        Update Pengajuan
-                    </h3>
-                </div>
-
-                <div class="card-form" style="margin: 3rem 15rem">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                Edit Data Pengajuan
-                            </h4>
+                        <div class="pt-2">
                             <form action="{{ route('pengajuans.update', $pengajuan->id) }}" method="POST"
                                 class="card-text" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <table>
-                                    <tr>
-                                        <td><label for="karyawan_id">
-                                                <h6>ID Karyawan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select name="karyawan_id" id="karyawan_id" class="form-control" required
-                                                onchange="updateEmployeeInfo()">
-                                                <option value="" disabled selected>Pilih ID Karyawan</option>
-                                                @foreach($employees as $employee)
-                                                    <option value="{{ $employee->id }}" {{ old('karyawan_id', $pengajuan->karyawan_id) == $employee->id ? 'selected' : '' }}>
-                                                        {{ $employee->id }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="nama_karyawan">
-                                                <h6>Nama Karyawan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" id="employee_name" name="employee_name"
-                                                class="form-control" readonly>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="tipe_pengajuan">
-                                                <h6>Tipe Pengajuan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="tipe_pengajuan" name="tipe_pengajuan"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                                <option value="">-- Pilih Tipe Pengajuan --</option>
-                                                @php $currentStatus = old('tipe_pengajuan', $pengajuan->tipe_pengajuan); @endphp
-                                                <option value="sakit" {{ $currentStatus == 'sakit' ? 'selected' : '' }}>
-                                                    Sakit</option>
-                                                <option value="izin" {{ $currentStatus == 'izin' ? 'selected' : '' }}>Izin
-                                                </option>
-                                                <option value="cuti" {{ $currentStatus == 'cuti' ? 'selected' : '' }}>Cuti
-                                                </option>
-                                                <option value="peningkatan_gaji" {{ $currentStatus == 'peningkatan_gaji' ? 'selected' : '' }}>Peningkatan Gaji</option>
-                                                <option value="pengunduran_diri" {{ $currentStatus == 'pengunduran_diri' ? 'selected' : '' }}>Pengunduran Diri</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="tanggal_pengajuan">
-                                                <h6>Tanggal Pengajuan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="date" name="tanggal_pengajuan"
-                                                value="{{ old('tanggal_pengajuan', $pengajuan->tanggal_pengajuan) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="dokumen">
-                                                <h6>Dokumen Pendukung:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="file" name="dokumen" class="form-control form-control-card"
-                                                style="width: 48rem">
-                                            @if($pengajuan->dokumen)
-                                                <h6>File saat ini: <a href="{{ Storage::url($pengajuan->dokumen) }}"
-                                                        target="_blank">Lihat Dokumen</a></h6>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="karyawan_id" class="w-40 font-medium">
+                                        Employee ID:
+                                    </label>
 
-                                <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/pengajuans') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Batal
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                    Update
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <select name="karyawan_id" id="karyawan_id"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required onchange="updateEmployeeInfo()">
+                                        <option value="" disabled selected>Choose Employee ID</option>
+                                        @foreach($employees as $employee)
+                                            <option value="{{ $employee->id }}" {{ old('karyawan_id', $pengajuan->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                                {{ $employee->id }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nama_karyawan" class="w-40 font-medium">
+                                        Full Name:
+                                    </label>
+
+                                    <input type="text" id="employee_name" name="employee_name"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tipe_pengajuan" class="w-40 font-medium">
+                                        Request Type:
+                                    </label>
+
+                                    <select id="tipe_pengajuan" name="tipe_pengajuan"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="">-- Pilih Tipe Pengajuan --</option>
+                                        @php $currentStatus = old('tipe_pengajuan', $pengajuan->tipe_pengajuan); @endphp
+                                        <option value="sakit" {{ $currentStatus == 'sakit' ? 'selected' : '' }}>
+                                            Sakit</option>
+                                        <option value="izin" {{ $currentStatus == 'izin' ? 'selected' : '' }}>
+                                            Izin
+                                        </option>
+                                        <option value="cuti" {{ $currentStatus == 'cuti' ? 'selected' : '' }}>
+                                            Cuti
+                                        </option>
+                                        <option value="peningkatan_gaji" {{ $currentStatus == 'peningkatan_gaji' ? 'selected' : '' }}>
+                                            Peningkatan Gaji</option>
+                                        <option value="pengunduran_diri" {{ $currentStatus == 'pengunduran_diri' ? 'selected' : '' }}>
+                                            Pengunduran Diri</option>
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tanggal_pengajuan" class="w-40 font-medium">
+                                        Request Date:
+                                    </label>
+
+                                    <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan"
+                                        value="{{ old('tanggal_pengajuan', $pengajuan->tanggal_pengajuan) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="dokumen" class="w-40 font-medium">
+                                        Document:
+                                    </label>
+
+                                    <input type="file" name="dokumen"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    @if($pengajuan->dokumen)
+                                        <h6>Current file: <a href="{{ Storage::url($pengajuan->dokumen) }}"
+                                                target="_blank">See Document</a></h6>
+                                    @endif
+                                </div>
+
+                                <div class="flex justify-end gap-2 items-center mt-6">
+                                    <a href="{{ url('/pengajuans') }}"
+                                        class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                        Cancel
+                                    </a>
+
+                                    <button type="submit"
+                                        class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-gray-200 hover:text-black transition">
+                                        Update
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer style="padding: 3rem;">
-                <div class="container text-center">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        <script src="{{ asset('js/script.js') }}"></script>
+
+        <script>
+            window.employees = @json($employees);
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                updateEmployeeInfo();
+            });
+        </script>
     </main>
-
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
-</body>
-
-</html>
+</x-app-layout>

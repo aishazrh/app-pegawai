@@ -1,175 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Edit Position's Data</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Jabatan</title>
-</head>
+    <main>
+        <div class="pt-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Edit Position's Data</p>
+                        </div>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
-
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
-
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="text">
-                <div>
-                    <h3 style="font-weight: bold;">
-                        Update Data Jabatan
-                    </h3>
-                </div>
-
-                <div class="card-form" style="margin: 7rem 15rem">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                Edit Data Jabatan
-                            </h5>
+                        <div class="pt-2">
                             <form action="{{ route('positions.update', $position->id) }}" method="POST"
                                 class="card-text">
                                 @csrf
                                 @method('PUT')
-                                <table>
-                                    <tr>
-                                        <td><label for="nama_jabatan">
-                                                <h6>Nama Jabatan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" name="nama_jabatan"
-                                                value="{{ old('nama_jabatan', $position->nama_jabatan) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nama_jabatan" class="w-40 font-medium">
+                                        Position Name:
+                                    </label>
 
-                                    <tr>
-                                        <td><label for="gaji_pokok">
-                                                <h6>Gaji Pokok:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="number" name="gaji_pokok"
-                                                value="{{ old('gaji_pokok', $position->gaji_pokok) }}"
-                                                class="form-control form-control-card" style="width: 48rem"></td>
-                                    </tr>
-                                </table>
-
-                                <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/positions') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Batal
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                    Update
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <input type="text" id="nama_jabatan" name="nama_jabatan"
+                                        value="{{ old('nama_jabatan', $position->nama_jabatan) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
                                 </div>
 
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="gaji_pokok" class="w-40 font-medium">
+                                        Basic Salary:
+                                    </label>
+
+                                    <input type="number" id="gaji_pokok" name="gaji_pokok"
+                                        value="{{ old('gaji_pokok', $position->gaji_pokok) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div class="flex justify-end gap-2 items-center mt-6">
+                                    <a href="{{ url('/positions') }}"
+                                        class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                        Cancel
+                                    </a>
+
+                                    <button type="submit"
+                                        class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-gray-200 hover:text-black transition">
+                                        Update
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <footer style="padding: 3rem;">
-                <div class="container text-center">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        </div>
     </main>
-
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
-
-</body>
-
-</html>
+</x-app-layout>

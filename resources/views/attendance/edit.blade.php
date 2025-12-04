@@ -1,264 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Edit Attendance's Data</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Edit Kehadiran</title>
+    <main>
+        <div class="pt-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Edit Attendance's Data</p>
+                        </div>
 
-    <script>
-        window.employees = @json($employees);
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            updateEmployeeInfo();
-        });
-    </script>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
-
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
-
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="text">
-                <div>
-                    <h3 style="font-weight: bold;">
-                        Update Laporan Kehadiran
-                    </h3>
-                </div>
-
-                <div class="card-form" style="margin: 3rem 15rem">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                Edit Data Kehadiran
-                            </h4>
+                        <div class="pt-2">
                             <form action="{{ route('attendance.update', $attendance->id) }}" method="POST"
                                 class="card-text">
                                 @csrf
                                 @method('PUT')
-                                <table>
-                                    <tr>
-                                        <td><label for="karyawan_id">
-                                                <h6>ID Karyawan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select name="karyawan_id" id="karyawan_id" class="form-control" required
-                                                onchange="updateEmployeeInfo()">
-                                                <option value="" disabled selected>Pilih ID Karyawan</option>
-                                                @foreach($employees as $employee)
-                                                    <option value="{{ $employee->id }}" {{ old('karyawan_id', $attendance->karyawan_id) == $employee->id ? 'selected' : '' }}>
-                                                        {{ $employee->id }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="nama_karyawan">
-                                                <h6>Nama Karyawan:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" id="employee_name" name="employee_name"
-                                                class="form-control" readonly required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="department">
-                                                <h6>Departemen:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="text" id="department" name="department" class="form-control"
-                                                readonly required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="tanggal">
-                                                <h6>Tanggal:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="date" name="tanggal"
-                                                value="{{ old('tanggal', $attendance->tanggal) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="waktu_masuk">
-                                                <h6>Waktu Masuk:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="time" name="waktu_masuk"
-                                                value="{{ old('waktu_masuk', $attendance->waktu_masuk) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="waktu_keluar">
-                                                <h6>Waktu Keluar:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="time" name="waktu_keluar"
-                                                value="{{ old('waktu_keluar', $attendance->waktu_keluar) }}"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="status_absensi">
-                                                <h6>Status Absensi:</h6>
-                                            </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="status_absensi" name="status_absensi"
-                                                class="form-control form-control-card" style="width: 48rem">
-                                                <option value="">-- Pilih Status --</option>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="karyawan_id" class="w-40 font-medium">
+                                        Employee ID:
+                                    </label>
 
-                                                @php
-                                                    $currentStatus = old('status_absensi', $attendance->status_absensi);
-                                                @endphp
-
-                                                <option value="Hadir" {{ $currentStatus == 'Hadir' ? 'selected' : '' }}>
-                                                    Hadir</option>
-                                                <option value="Izin" {{ $currentStatus == 'Izin' ? 'selected' : '' }}>Izin
-                                                </option>
-                                                <option value="Sakit" {{ $currentStatus == 'Sakit' ? 'selected' : '' }}>
-                                                    Sakit</option>
-                                                <option value="Alfa" {{ $currentStatus == 'Alfa' ? 'selected' : '' }}>Alfa
-                                                </option>
-                                            </select>
-
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/attendance') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Batal
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                    Update
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <select name="karyawan_id" id="karyawan_id"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required onchange="updateEmployeeInfo()">
+                                        <option value="" disabled selected>Choose Employee ID</option>
+                                        @foreach($employees as $employee)
+                                            <option value="{{ $employee->id }}" {{ old('karyawan_id', $attendance->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                                {{ $employee->id }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nama_karyawan" class="w-40 font-medium">
+                                        Full Name:
+                                    </label>
+
+                                    <input type="text" id="employee_name" name="employee_name"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="department" class="w-40 font-medium">
+                                        Department:
+                                    </label>
+
+                                    <input type="text" id="department" name="department"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tanggal" class="w-40 font-medium">
+                                        Date:
+                                    </label>
+
+                                    <input type="date" id="tanggal" name="tanggal"
+                                        value="{{ old('tanggal', $attendance->tanggal) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        style="width: 48rem">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="waktu_masuk" class="w-40 font-medium">
+                                        Check In:
+                                    </label>
+
+                                    <input type="time" id="waktu_masuk" name="waktu_masuk"
+                                        value="{{ old('waktu_masuk', $attendance->waktu_masuk) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        style="width: 48rem">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="waktu_keluar" class="w-40 font-medium">
+                                        Check Out:
+                                    </label>
+
+                                    <input type="time" id="waktu_keluar" name="waktu_keluar"
+                                        value="{{ old('waktu_keluar', $attendance->waktu_keluar) }}"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        style="width: 48rem">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="status_absensi" class="w-40 font-medium">
+                                        Status:
+                                    </label>
+
+                                    <select id="status_absensi" name="status_absensi"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+
+                                        <option value="">-- Pilih Status --</option>
+
+                                        @php
+                                            $currentStatus = old('status_absensi', $attendance->status_absensi);
+                                        @endphp
+
+                                        <option value="Hadir" {{ $currentStatus == 'Hadir' ? 'selected' : '' }}>Hadir
+                                        </option>
+                                        <option value="Izin" {{ $currentStatus == 'Izin' ? 'selected' : '' }}>Izin
+                                        </option>
+                                        <option value="Sakit" {{ $currentStatus == 'Sakit' ? 'selected' : '' }}>Sakit
+                                        </option>
+                                        <option value="Alfa" {{ $currentStatus == 'Alfa' ? 'selected' : '' }}>Alfa
+                                        </option>
+
+                                    </select>
+                                </div>
+
+                                <div class="flex justify-end gap-2 items-center mt-6">
+                                    <a href="{{ url('/attendance') }}"
+                                        class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                        Cancel
+                                    </a>
+
+                                    <button type="submit"
+                                        class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-gray-200 hover:text-black transition">
+                                        Update
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer style="padding: 3rem;">
-                <div class="container text-center">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        <script>
+            window.employees = @json($employees);
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                updateEmployeeInfo();
+            });
+        </script>
+        <script src="{{ asset(path: 'js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
-</body>
-
-</html>
+</x-app-layout>

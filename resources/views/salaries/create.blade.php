@@ -1,259 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Create New Salary</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Input Gaji</title>
+    <main>
+        <div class="py-24">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Set New Salary</p>
+                        </div>
 
-    <script>
-        window.employees = @json($employees);
-    </script>
-</head>
+                        <div class="pt-2">
+                            <form action="{{ route('salaries.store') }}" method="POST">
+                                @csrf
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="karyawan_id" class="w-40 font-medium">
+                                        Employee ID:
+                                    </label>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                                    <select name="karyawan_id" id="karyawan_id"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required onchange="updateEmployeeInfo()">
+                                        <option value="" disabled selected>Pilih ID Karyawan</option>
+                                        @foreach($employees as $employee)
+                                            <option value="{{ $employee->id }}">{{ $employee->id }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nama_karyawan" class="w-40 font-medium">
+                                        Full Name:
+                                    </label>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
+                                    <input type="text" id="employee_name" name="employee_name"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
 
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="bulan" class="w-40 font-medium">
+                                        Month:
+                                    </label>
 
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
+                                    <input type="month" id="bulan" name="bulan"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required>
+                                </div>
 
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="department" class="w-40 font-medium">
+                                        Department:
+                                    </label>
 
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
+                                    <input type="text" id="department" name="department"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
 
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="content-area">
-                <div class="text">
-                    <div>
-                        <h3 style="font-weight: bold;">
-                            Tambahkan Gaji Baru
-                        </h3>
-                    </div>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="position" class="w-40 font-medium">
+                                        Position:
+                                    </label>
 
-                    <div class="card-form" style="margin: 7rem 15rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5
-                                    style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Form Gaji
-                                </h5>
+                                    <input type="text" id="position" name="position"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
 
-                                <form action="{{ route('salaries.store') }}" method="POST" class="card-text">
-                                    @csrf
-                                    <table>
-                                        <tr>
-                                            <td><label for="karyawan_id">
-                                                    <h6>ID Karyawan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <select name="karyawan_id" id="karyawan_id" class="form-control"
-                                                    required onchange="updateEmployeeInfo()">
-                                                    <option value="" disabled selected>Pilih ID Karyawan</option>
-                                                    @foreach($employees as $employee)
-                                                        <option value="{{ $employee->id }}">{{ $employee->id }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="salary" class="w-40 font-medium">
+                                        Basic Salary:
+                                    </label>
 
-                                        <tr>
-                                            <td><label for="nama_karyawan">
-                                                    <h6>Nama Karyawan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="employee_name" name="employee_name"
-                                                    class="form-control" readonly required>
-                                            </td>
-                                        </tr>
+                                    <input type="text" id="salary" name="gaji_pokok"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        readonly required>
+                                </div>
 
-                                        <tr>
-                                            <td><label for="bulan">
-                                                    <h6>Bulan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="month" id="bulan" name="bulan"
-                                                    class="form-control form-control-card" style="width: 48rem"
-                                                    required>
-                                            </td>
-                                        </tr>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tunjangan" class="w-40 font-medium">
+                                        Allowance:
+                                    </label>
 
-                                        <tr>
-                                            <td><label for="department">
-                                                    <h6>Departemen:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="department" name="department"
-                                                    class="form-control" readonly required>
-                                            </td>
-                                        </tr>
+                                    <input type="number" id="tunjangan" name="tunjangan"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                                        <tr>
-                                            <td><label for="position">
-                                                    <h6>Jabatan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="position" name="position" class="form-control"
-                                                    readonly required>
-                                            </td>
-                                        </tr>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="potongan" class="w-40 font-medium">
+                                        Cut:
+                                    </label>
 
-                                        <tr>
-                                            <td><label for="salary">
-                                                    <h6>Gaji Pokok:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="salary" name="gaji_pokok" class="form-control"
-                                                    readonly required>
-                                            </td>
-                                        </tr>
+                                    <input type="number" id="potongan" name="potongan"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                                        <tr>
-                                            <td><label for="tunjangan">
-                                                    <h6>Tunjangan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="number" id="tunjangan" name="tunjangan"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
+                                <div class="flex justify-end gap-2 items-center mt-6">
+                                    <a href="{{ url('/salaries') }}"
+                                        class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                        Cancel
+                                    </a>
 
-                                        <tr>
-                                            <td><label for="potongan">
-                                                    <h6>Potongan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="number" id="potongan" name="potongan"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                    </table>
-
-                                    <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                        <table style="border-collapse: separate;">
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ url('/salaries') }}" class="btn btn-cancel"
-                                                        style="width: 100%">
-                                                        Batal
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                        Simpan
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </form>
-
-                            </div>
+                                    <button type="submit"
+                                        class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-gray-200 hover:text-black transition">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer class="footer text-center">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        <script>
+            window.employees = @json($employees);
+        </script>
+        <script src="{{ asset('js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset('js/script.js') }}"></script>
-
-</body>
-
-</html>
+</x-app-layout>

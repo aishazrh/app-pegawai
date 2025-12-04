@@ -1,237 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Requests</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <title>Requests</title>
+    <main>
+        <div class="pt-8 pb-10">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div x-data="{ open: false }">
+                            <button @click="open = !open" class="w-full flex justify-between items-center p-4">
+                                <span class="font-semibold">Manage your request list</span>
+                                <span x-text="open ? '↑' : '↓'" class="text-xl"></span>
+                            </button>
 
-    @php
-        use Illuminate\Support\Facades\Storage;
-    @endphp
-</head>
+                            <div x-show="open" x-transition
+                                class="text-gray-600 transition-all duration-300 ease-in-out">
+                                <form action="{{ route('pengajuans.index') }}" method="GET"
+                                    class="overflow-hidden sm:rounded-lg flex items-center gap-3 p-4">
 
-<body>
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                                    <input type="text" name="search" placeholder="Search request"
+                                        value="{{ $search ?? '' }}" class="flex-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 
+                                        focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 
+                                        dark:focus:ring-indigo-600 rounded-xl shadow-sm">
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-blue-900 text-white rounded-xl transition ease-in-out duration-150">
+                                        Go
+                                    </button>
+                                </form>
+                            </div>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="text">
-                <div>
-                    <h3 style="font-weight: bold;">
-                        Daftar Pengajuan
-                    </h3>
-                </div>
-
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
-                    style="padding-top: 0.5rem; padding-bottom: 1rem;">
-                    <div class="d-flex flex-column flex-md-row align-items-md-center">
-                        <form action="{{ route('pengajuans.index') }}" method="GET" class="me-md-2 mb-2 mb-md-0">
-                            <input type="text" name="search" placeholder="Search" value="{{ $search ?? '' }}"
-                                class="form-control" style="width: 68rem;">
-                        </form>
-
-                        <div>
-                            <a href="{{ url(path: '/pengajuans/create') }}" class="btn btn-primary">
-                                Add Request
-                            </a>
+                            <div x-show="open" x-transition
+                                class="p-4 text-gray-600 transition-all duration-300 ease-in-out">
+                                <a href="{{ url(path: '/pengajuans/create') }}" class="btn btn-primary">
+                                    Add Request
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <table cellpadding="5" style="text-align: center; table-layout: auto;">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <h6><strong>ID</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>ID Karyawan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Nama Lengkap</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Departemen</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Jabatan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Tipe Pengajuan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Tanggal Pengajuan</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Dokumen</strong></h6>
-                                    </th>
-                                    <th>
-                                        <h6><strong>Aksi</strong></h6>
-                                    </th>
-                            </thead>
-                            <tbody>
-                                @foreach ($pengajuans as $pengajuan)
-                                    <tr>
-                                        <td>
-                                            <h6>{{ $pengajuan->id }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan_id }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->nama_lengkap }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->department->nama_departemen ?? '-' }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->position->nama_jabatan ?? '-' }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->tipe_pengajuan }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6>{{ $pengajuan->tanggal_pengajuan }}</h6>
-                                        </td>
-                                        <td>
-                                            @if($pengajuan->dokumen)
-                                                <a href="{{ Storage::url($pengajuan->dokumen) }}" target="_blank" style="font-size: medium">Lihat
-                                                    Dokumen</a>
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="dropdown position-static">
-                                                <button class="btn btn-primary dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    More
-                                                </button>
-
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item"
-                                                            href="{{ route('pengajuans.show', $pengajuan->id) }}">Detail</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item"
-                                                            href="{{ route('pengajuans.edit', $pengajuan->id) }}">Edit</a>
-                                                    </li>
-                                                    <li>
-                                                        <form action="{{ route('pengajuans.destroy', $pengajuan->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="dropdown-item dropdown-item-delete text-danger">Delete</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
+        </div>
 
-            <footer class="footer text-center" style="margin-top: 28rem">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
+        <div class="py-1">
+            <div class="w-full px-[6.5rem] overflow-visible">
+                <table class="w-full table-auto bg-white rounded-xl overflow-visible">
+                    <thead>
+                        <tr class="bg-blue-900 text-white">
+                            <th class="p-6 rounded-tl-xl">ID</th>
+                            <th class="p-6">Employee ID</th>
+                            <th class="p-6">Full Name</th>
+                            <th class="p-6">Department</th>
+                            <th class="p-6">Position</th>
+                            <th class="p-6">Type</th>
+                            <th class="p-6">Date</th>
+                            <th class="p-6">Document</th>
+                            <th class="p-6 rounded-tr-xl">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="overflow-visible">
+                        <tr>
+                            <hr>
+                        </tr>
+                        @foreach ($pengajuans as $pengajuan)
+                            <tr class="text-center">
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->id }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->karyawan_id }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->karyawan->nama_lengkap }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->karyawan->department->nama_departemen ?? '-' }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->karyawan->position->nama_jabatan ?? '-' }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->tipe_pengajuan }}</h6>
+                                </td>
+                                <td class="p-4">
+                                    <h6>{{ $pengajuan->tanggal_pengajuan }}</h6>
+                                </td>
+                                <td>
+                                    @if($pengajuan->dokumen)
+                                        <a href="{{ Storage::url($pengajuan->dokumen) }}" target="_blank"
+                                            style="font-size: medium">
+                                            See Document
+                                        </a>
+                                    @else
+                                        <h6>-</h6>
+                                    @endif
+                                </td>
+                                <td class="relative p-4 overflow-visible">
+                                    <div class="flex gap-2 justify-center">
+                                        <a href="{{ route('pengajuans.show', $pengajuan->id) }}"
+                                            class="p-2 hover:bg-gray-200 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M11 11h2v6h-2zM11 7h2v2h-2z"></path>
+                                                <path
+                                                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14z">
+                                                </path>
+                                            </svg>
+                                        </a>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                crossorigin="anonymous"></script>
-        </section>
+                                        <a href="{{ route('pengajuans.edit', $pengajuan->id) }}"
+                                            class="p-2 hover:bg-gray-200 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M5 21h14c1.1 0 2-.9 2-2v-7h-2v7H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2">
+                                                </path>
+                                                <path
+                                                    d="M7 13v3c0 .55.45 1 1 1h3c.27 0 .52-.11.71-.29l9-9a.996.996 0 0 0 0-1.41l-3-3a.996.996 0 0 0-1.41 0l-9.01 8.99A1 1 0 0 0 7 13">
+                                                </path>
+                                            </svg>
+                                        </a>
+
+                                        <form action="{{ route('pengajuans.destroy', $pengajuan->id) }}" method="POST"
+                                            onsubmit="return confirm('Yakin mau hapus data ini?')" class="inline">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="p-2 hover:bg-red-200 rounded">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M5 19V5h14v14z">
+                                                    </path>
+                                                    <path
+                                                        d="M14.83 7.76 12 10.59 9.17 7.76 7.76 9.17 10.59 12l-2.83 2.83 1.41 1.41L12 13.41l2.83 2.83 1.41-1.41L13.41 12l2.83-2.83z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
-
-    <script src="{{ asset(path: 'js/script.js') }}"></script>
-</body>
-
-</html>
+</x-app-layout>
