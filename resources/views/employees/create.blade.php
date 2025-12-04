@@ -1,272 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Create New Employee</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Form Input Pegawai</title>
-</head>
+    <main>
+        <div class="pt-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 text-center">
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Create New Employee</p>
+                        </div>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                        <div class="pt-2">
+                            <form action="{{ route('employees.store') }}" method="POST">
+                                @csrf
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nama_lengkap" class="w-40 font-medium">
+                                        Full Name:
+                                    </label>
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                                    <input type="text" id="nama_lengkap" name="nama_lengkap"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="email" class="w-40 font-medium">
+                                        Email:
+                                    </label>
 
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
+                                    <input type="email" id="email" name="email"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="nomor_telepon" class="w-40 font-medium">
+                                        Phone Number:
+                                    </label>
 
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
+                                    <input type="text" id="nomor_telepon" name="nomor_telepon"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tanggal_lahir" class="w-40 font-medium">
+                                        Date of Birth:
+                                    </label>
 
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="content-area">
-                <div class="text">
-                    <div>
-                        <h3 style="font-weight: bold;">
-                            Daftarkan Pegawai Baru
-                        </h3>
-                    </div>
+                                    <input type="date" id="tanggal_lahir" name="tanggal_lahir"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
 
-                    <div class="card-form" style="margin-left: 15rem">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5
-                                    style="font-weight: bold; text-align: center; padding-bottom: 2rem; padding-top: 1rem;">
-                                    Form Pegawai
-                                </h5>
-                                <form action="{{ route('employees.store') }}" method="POST" class="card-text">
-                                    @csrf
-                                    <table>
-                                        <tr>
-                                            <td><label for="nama_lengkap">
-                                                    <h6>Nama Lengkap:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="nama_lengkap" name="nama_lengkap"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="email">
-                                                    <h6>Email:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="email" id="email" name="email"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="nomor_telepon">
-                                                    <h6>Nomor Telepon:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" id="nomor_telepon" name="nomor_telepon"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="tanggal_lahir">
-                                                    <h6>Tanggal Lahir:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="date" id="tanggal_lahir" name="tanggal_lahir"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="alamat">
-                                                    <h6>Alamat:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <textarea id="alamat" name="alamat"
-                                                    class="form-control form-control-card"
-                                                    style="width: 48rem"></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="tanggal_masuk">
-                                                    <h6>Tanggal Masuk:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="date" id="tanggal_masuk" name="tanggal_masuk"
-                                                    class="form-control form-control-card" style="width: 48rem">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="department_id">
-                                                    <h6>Departemen:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <select name="department_id" class="form-control" required>
-                                                    <option value="" disabled selected>Pilih Departemen</option>
-                                                    @foreach($departments as $department)
-                                                        <option value="{{ $department->id }}">
-                                                            {{ $department->nama_departemen }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="jabatan_id">
-                                                    <h6>Jabatan:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <select name="jabatan_id" class="form-control"
-                                                    required onchange="updateSalary()">
-                                                    <option value="" disabled selected>Pilih Posisi</option>
-                                                    @foreach($positions as $position)
-                                                        <option value="{{ $position->id }}"
-                                                            data-salary="{{ $position->gaji_pokok }}">
-                                                            {{ $position->nama_jabatan }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><label for="status">
-                                                    <h6>Status:</h6>
-                                                </label></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <select id="status" name="status" class="form-control form-control-card"
-                                                    style="width: 48rem">
-                                                    <option value="Aktif">
-                                                        <h6>Aktif</h6>
-                                                    </option>
-                                                    <option value="nonaktif">
-                                                        <h6>Nonaktif</h6>
-                                                    </option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="alamat" class="w-40 font-medium">
+                                        Address:
+                                    </label>
 
-                                    <div style="text-align: center; width: 100%; margin-top: 1rem;">
-                                        <table style="border-collapse: separate;">
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ url('/employees') }}" class="btn btn-cancel"
-                                                        style="width: 100%">
-                                                        Batal
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                        Simpan
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
+                                    <input id="alamat" name="alamat" class="flex-1 border border-gray-300 rounded-md p-2
+                                        focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="tanggal_masuk" class="w-40 font-medium">
+                                        Entry Date:
+                                    </label>
+
+                                    <input type="date" id="tanggal_masuk" name="tanggal_masuk"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="department_id" class="w-40 font-medium">
+                                        Department:
+                                    </label>
+
+                                    <select name="department_id"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required>
+                                        <option value="" disabled selected>Pilih Departemen</option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">
+                                                {{ $department->nama_departemen }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="jabatan_id" class="w-40 font-medium">
+                                        Position:
+                                    </label>
+
+                                    <select name="jabatan_id"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        required onchange="updateSalary()">
+                                        <option value="" disabled selected>Pilih Posisi</option>
+                                        @foreach($positions as $position)
+                                            <option value="{{ $position->id }}" data-salary="{{ $position->gaji_pokok }}">
+                                                {{ $position->nama_jabatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label for="status" class="w-40 font-medium">
+                                        Status:
+                                    </label>
+
+                                    <select id="status" name="status"
+                                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                        style="width: 48rem">
+                                        <option value="Aktif">
+                                            <h6>Aktif</h6>
+                                        </option>
+                                        <option value="nonaktif">
+                                            <h6>Nonaktif</h6>
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="flex justify-end gap-2 items-center mt-6">
+                                    <a href="{{ url('/employees') }}"
+                                        class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                        Cancel
+                                    </a>
+
+                                    <button type="submit"
+                                        class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-gray-200 hover:text-black transition">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <footer class="footer text-center" style="margin-top: 3rem;">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        </div>
     </main>
-
-    <script src="{{ asset('js/script.js') }}"></script>
-</body>
-
-</html>
+</x-app-layout>

@@ -56,3 +56,19 @@ document.addEventListener("DOMContentLoaded", function () {
         updateEmployeeInfo();
     }, 50);
 });
+
+let formToSubmit = null;
+
+            document.querySelectorAll(".btn-delete").forEach(button => {
+                button.addEventListener("click", function () {
+                    formToSubmit = this.closest("form");
+                    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                    deleteModal.show();
+                });
+            });
+
+            document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+                if (formToSubmit) {
+                    formToSubmit.submit();
+                }
+            });

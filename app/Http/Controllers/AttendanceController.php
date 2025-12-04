@@ -13,13 +13,20 @@ class AttendanceController extends Controller
         $search = $request->input('search');
 
         $attendances = Attendance::with(['karyawan.department'])
-            ->when($search, function ($query, $search) {
-                $query->where('tanggal', 'like', "%{$search}%");
+            ->when($search, function ($query) use ($search) {
+                $query->where('tanggal', 'like', "%{$search}%")
+                    ->orWhereHas('karyawan', function ($q) use ($search) {
+                        $q->where('nama_lengkap', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('karyawan.department', function ($q) use ($search) {
+                        $q->where('nama_departemen', 'like', "%{$search}%");
+                    });
             })
             ->get();
 
         return view('attendance.index', compact('attendances', 'search'));
     }
+
 
     public function create()
     {

@@ -1,183 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Position Detail</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Detail Jabatan</title>
-</head>
+    <main>
+        <div class="pt-16">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="py-4 text-center">
+                            <p class="font-black text-xl">Position Info</p>
+                        </div>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                        <div class="pb-4 pt-6">
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="id" class="w-40 font-medium">
+                                    Position ID:
+                                </label>
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                                <input type="text" name="position_id" readonly value="{{ $position->id }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="nama_jabatan" class="w-40 font-medium">
+                                    Position Name:
+                                </label>
 
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
+                                <input type="text" name="nama_jabatan" readonly value="{{ $position->nama_jabatan }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
 
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="gaji_pokok" class="w-40 font-medium">
+                                    Basic Salary:
+                                </label>
 
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
+                                <input type="text" name="gaji_pokok" readonly
+                                    value="Rp {{ number_format($position->gaji_pokok, 0, ',', '.') }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
 
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="created_at" class="w-40 font-medium">
+                                    Created At:
+                                </label>
 
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="content-area">
-                <div class="text">
-                    <div>
-                        <h3 style="font-weight: bold;">
-                            Detail Jabatan
-                        </h3>
-                    </div>
+                                <input type="text" name="created_at" readonly value="{{ $position->created_at }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
 
-                    <div class="card-form" style="margin: 5rem 15rem;">
-                        <div class="card text-center">
-                            <div class="card-body" style="margin-top: 3rem">
-                                <table border="0" cellpadding="8" cellspacing="0">
-                                    <tr>
-                                        <h5 style="padding-bottom: 2rem"><strong>Detail Jabatan</strong></h5>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="id">
-                                                <h6><strong>ID Jabatan</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $position->id }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="nama_jabatan">
-                                                <h6><strong>Nama Jabatan</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $position->nama_jabatan }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="gaji_pokok">
-                                                <h6><strong>Gaji Pokok</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>Rp {{ number_format($position->gaji_pokok, 0, ',', '.') }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="created_at">
-                                                <h6><strong>Created At</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $position->created_at }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="updated_at">
-                                                <h6><strong>Updated At</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $position->updated_at }}</h6>
-                                        </td>
-                                    </tr>
-                                </table>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="updated_at" class="w-40 font-medium">
+                                    Updated At:
+                                </label>
 
-                                <div style="text-align: center; width: 100%; margin-top: 2rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/positions') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Kembali
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                <input type="text" name="updated_at" readonly value="{{ $position->updated_at }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="justify-center pt-12">
+                                <a href="{{ url('/positions') }}"
+                                    class="px-[35rem] py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                    Cancel
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <footer class="footer text-center">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
+        </div>
+        <script src="{{ asset('js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset('js/script.js') }}"></script>
-
-</body>
-
-</html>
+</x-app-layout>

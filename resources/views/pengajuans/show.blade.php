@@ -1,230 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Request Detail</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Detail Pengajuan</title>
-</head>
+    <main>
+        <div class="pt-10">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="py-4 text-center">
+                            <p class="font-black text-3xl">Report Info</p>
+                        </div>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                        <div class="pb-4">
+                            <p class="font-black text-2xl">Personal</p>
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="karyawan_id" class="w-40 font-medium">
+                                    Employee ID:
+                                </label>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="content-area">
-                <div class="text">
-                    <div>
-                        <h3 style="font-weight: bold;">
-                            Detail Pengajuan
-                        </h3>
-                    </div>
-
-                    <div class="card-form" style="margin: 5rem 15rem;">
-                        <div class="card text-center">
-                            <div class="card-body" style="margin-top: 3rem">
-                                <table border="0" cellpadding="8" cellspacing="0">
-                                    <tr>
-                                        <h5 style="padding-bottom: 2rem"><strong>Detail Laporan Pengajuan</strong></h5>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="id">
-                                                <h6><strong>ID Pengajuan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->id }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="karyawan_id">
-                                                <h6><strong>ID Karyawan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan_id }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="karyawan_id">
-                                                <h6><strong>Nama Karyawan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->nama_lengkap }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="department">
-                                                <h6><strong>Departemen:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->department->nama_departemen }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="position">
-                                                <h6><strong>Jabatan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->karyawan->position->nama_jabatan }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="tipe_pengajuan">
-                                                <h6><strong>Tipe Pengajuan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->tipe_pengajuan }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="tanggal_pengajuan">
-                                                <h6><strong>Tanggal Pengajuan:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->tanggal_pengajuan }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="dokumen">
-                                                <h6><strong>Dokumen Pendukung:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>
-                                                @if($pengajuan->dokumen)
-                                                    <a href="{{ Storage::url($pengajuan->dokumen) }}" target="_blank"
-                                                        style="font-size: medium">Lihat
-                                                        Dokumen</a>
-                                                @else
-                                                    -
-                                                @endif
-                                            </h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="created_at">
-                                                <h6><strong>Created At:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->created_at }}</h6>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><label for="updated_at">
-                                                <h6><strong>Updated At:</strong></h6>
-                                            </label></th>
-                                        <td>
-                                            <h6>{{ $pengajuan->updated_at }}</h6>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <div style="text-align: center; width: 100%; margin-top: 2rem;">
-                                    <table style="border-collapse: separate;">
-                                        <tr>
-                                            <td>
-                                                <a href="{{ url('/pengajuans') }}" class="btn btn-cancel"
-                                                    style="width: 100%">
-                                                    Kembali
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                <input type="text" name="karyawan_id" readonly value="{{ $pengajuan->karyawan->id }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="nama_lengkap" class="w-40 font-medium">
+                                    Full Name:
+                                </label>
+
+                                <input type="text" name="nama_lengkap" readonly
+                                    value="{{ $pengajuan->karyawan->nama_lengkap }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="department" class="w-40 font-medium">
+                                    Department:
+                                </label>
+
+                                <input type="text" name="department" readonly
+                                    value="{{ $pengajuan->karyawan->department->nama_departemen }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="position" class="w-40 font-medium">
+                                    Position:
+                                </label>
+
+                                <input type="text" name="position" readonly
+                                    value="{{ $pengajuan->karyawan->position->nama_jabatan }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="pb-4">
+                            <p class="font-black text-2xl">Request</p>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="id" class="w-40 font-medium">
+                                    Request ID:
+                                </label>
+
+                                <input type="text" name="id" readonly value="{{ $pengajuan->id }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="tanggal_pengajuan" class="w-40 font-medium">
+                                    Date:
+                                </label>
+
+                                <input type="date" name="tanggal_pengajuan" readonly
+                                    value="{{ $pengajuan->tanggal_pengajuan }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="tipe_pengajuan" class="w-40 font-medium">
+                                    Request Type:
+                                </label>
+
+                                <input type="text" name="tipe_pengajuan" readonly
+                                    value="{{ $pengajuan->tipe_pengajuan }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="dokumen" class="w-40 font-medium">
+                                    Document:
+                                </label>
+
+                                @if($pengajuan->dokumen)
+                                    <a href="{{ Storage::url($pengajuan->dokumen) }}" target="_blank"
+                                        style="font-size: medium">
+                                        See Document
+                                    </a>
+                                @else
+                                    -
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Data Info</p>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="created_at" class="w-40 font-medium">
+                                    Created At:
+                                </label>
+
+                                <p>{{ $pengajuan->created_at }}</p>
+                            </div>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="updated_at" class="w-40 font-medium">
+                                    Updated At:
+                                </label>
+
+                                <p>{{ $pengajuan->updated_at }}</p>
+                            </div>
+                        </div>
+
+                        <div class="justify-center">
+                            <a href="{{ url('/pengajuans') }}"
+                                class="px-[35rem] py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                Cancel
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <footer class="footer text-center">
-                    <div class="container">
-                        <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                        <small>Developed by Aisha Zarrah </small>
-                    </div>
-                </footer>
-        </section>
+            </div>
+        </div>
+        <script src="{{ asset('js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset('js/script.js') }}"></script>
-
-</body>
-
-</html>
+</x-app-layout>

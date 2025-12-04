@@ -1,271 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <x-slot name="title">Employee Detail</x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-whatever" crossorigin="anonymous"></script>
-    <title>Detail Pegawai</title>
-</head>
+    <main>
+        <div class="pt-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <div class="py-4 text-center">
+                            <p class="font-black text-3xl">Employee Info</p>
+                        </div>
 
-<body class="d-flex flex-column min-vh-100">
-    <main class="grow">
-        <nav class="sidebar close">
-            <header>
-                <div class="image-text">
-                    <span class="image">
-                        <img src="{{ asset('images/logo light.png') }}" alt="logo">
-                    </span>
+                        <div class="pb-4">
+                            <p class="font-black text-2xl">Personal</p>
 
-                    <div class="text header-text">
-                        <span class="name">App Pegawai</span>
-                    </div>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="id" class="w-40 font-medium">
+                                    Employee ID:
+                                </label>
 
-                    <i class='bx  bx-chevron-right toggle'></i>
-                </div>
-            </header>
-
-            <div class="menu-bar">
-                <div class="menu">
-                    <li class="search-box">
-                        <i class='bx bx-search icon'></i>
-                        <input type="text" placeholder="Search...">
-                    </li>
-
-                    {{-- NAV --}}
-                    <li class="nav-link">
-                        <a href="/">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/employees">
-                            <i class='bx bx-people-diversity icon'></i>
-                            <span class="text nav-text">Employees</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/departments">
-                            <i class='bx  bx-department-store icon'></i>
-                            <span class="text nav-text">Departments</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/attendance">
-                            <i class='bx bx-fingerprint icon'></i>
-                            <span class="text nav-text">Attendances</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/reports">
-                            <i class='bx bx-newspaper icon'></i>
-                            <span class="text nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="/pengajuans">
-                            <i class='bx bx-folder icon'></i>
-                            <span class="text nav-text">Requests</span>
-                        </a>
-                    </li>
-                </div>
-
-                <div class="bottom-content">
-                    <li class="">
-                        <a href="/settings">
-                            <i class='bx bx-cog icon'></i>
-                            <span class="text nav-text">Settings</span>
-                        </a>
-                    </li>
-
-                    <li class="mode">
-                        <div class="moon-sun"> <i class="bx bx-moon icon moon"></i> <i class="bx bx-sun icon sun"></i>
-                        </div> <span class="mode-text text">Dark Mode</span>
-                        <div class="toggle-switch"> <span class="switch"></span> </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
-
-        <section class="home" style="margin-top: 0.5rem">
-            <div class="content-area">
-                <div class="text">
-                    <div>
-                        <h3 style="font-weight: bold;">
-                            Detail Pegawai
-                        </h3>
-                    </div>
-                </div>
-
-                <div class="card-form" style="margin-left: 17rem">
-                    <div class="card text-center">
-                        <div class="card-body" style="margin-top: 2rem">
-                            <table border="0" cellpadding="8" cellspacing="0">
-                                <tr>
-                                    <h5 style="padding-bottom: 2rem"><strong>Detail Pegawai</strong></h5>
-                                </tr>
-                                <tr>
-                                    <th><label for="id">
-                                            <h6><strong>ID Pegawai:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->id }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="nama_lengkap">
-                                            <h6><strong>Nama Lengkap:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->nama_lengkap }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="email">
-                                            <h6><strong>Email:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->email }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="nomor_telepon">
-                                            <h6><strong>Nomor Telepon:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->nomor_telepon }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="tanggal_lahir">
-                                            <h6><strong>Tanggal Lahir:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->tanggal_lahir }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="alamat">
-                                            <h6><strong>Alamat:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->alamat }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="tanggal_masuk">
-                                            <h6><strong>Tanggal Masuk:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->tanggal_masuk }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="department_id">
-                                            <h6><strong>Departemen:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->department->nama_departemen }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="position_id">
-                                            <h6><strong>Jabatan:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->position->nama_jabatan }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="salary">
-                                            <h6><strong>Gaji Pokok:</strong></h6>
-                                        </label></th>
-                                    <td>
-                                        @php
-                                            $salaryData = $employee->salary->first();
-                                            $gajiPokok = $salaryData->gaji_pokok ?? 0;
-                                        @endphp
-
-                                        Rp {{ number_format($gajiPokok, 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th><label for="tunjangan">
-                                            <h6><strong>Tunjangan:</strong></h6>
-                                        </label></th>
-                                    <td>
-                                        @php
-                                            $tunjangan = $salaryData->tunjangan ?? 0;
-                                        @endphp
-
-                                        Rp {{ number_format($tunjangan, 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th><label for="potongan">
-                                            <h6><strong>Potongan:</strong></h6>
-                                        </label></th>
-                                    <td>
-                                        @php
-                                            $potongan = $salaryData->potongan ?? 0;
-                                        @endphp
-
-                                        Rp {{ number_format($potongan, 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th><label for="total_gaji">
-                                            <h6><strong>Total Gaji:</strong></h6>
-                                        </label></th>
-                                    <td>
-                                        @php
-                                            $salaryData = $employee->salary->first();
-
-                                            $gaji_pokok = $salaryData->gaji_pokok ?? 0;
-                                            $tunjangan = $salaryData->tunjangan ?? 0;
-                                            $potongan = $salaryData->potongan ?? 0;
-
-                                            $total_gaji = $gaji_pokok + $tunjangan - $potongan;
-                                        @endphp
-
-                                        Rp {{ number_format($total_gaji, 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th><label for="status">
-                                            <h6><strong>Status:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->status }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="created_at">
-                                            <h6><strong>Created At:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->created_at }}</td>
-                                </tr>
-                                <tr>
-                                    <th><label for="updated_at">
-                                            <h6><strong>Updated At:</strong></h6>
-                                        </label></th>
-                                    <td>{{ $employee->updated_at }}</td>
-                                </tr>
-                            </table>
-
-                            <div style="text-align: center; width: 100%; margin-top: 2rem;">
-                                <table style="border-collapse: separate;">
-                                    <tr>
-                                        <td>
-                                            <a href="{{ url('/employees') }}" class="btn btn-cancel"
-                                                style="width: 100%">
-                                                Kembali
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <input type="text" name="nama_lengkap" readonly value="{{ $employee->id }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="nama_lengkap" class="w-40 font-medium">
+                                    Full Name:
+                                </label>
+
+                                <input type="text" name="nama_lengkap" readonly value="{{ $employee->nama_lengkap }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="email" class="w-40 font-medium">
+                                    Email:
+                                </label>
+
+                                <input type="email" name="email" readonly value="{{ $employee->email }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="nomor_telepon" class="w-40 font-medium">
+                                    Phone Number:
+                                </label>
+
+                                <input type="number" name="nomor_telepon" readonly
+                                    value="{{ $employee->nomor_telepon }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="tanggal_lahir" class="w-40 font-medium">
+                                    Date of Birth:
+                                </label>
+
+                                <input type="date" name="tanggal_lahir" readonly value="{{ $employee->tanggal_lahir }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="alamat" class="w-40 font-medium">
+                                    Address:
+                                </label>
+
+                                <input type="text" name="alamat" readonly value="{{ $employee->alamat }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="pb-4">
+                            <p class="font-black text-2xl">Work</p>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="tanggal_masuk" class="w-40 font-medium">
+                                    Entry Date:
+                                </label>
+
+                                <input type="date" name="tanggal_masuk" readonly value="{{ $employee->tanggal_masuk }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="department_id" class="w-40 font-medium">
+                                    Department:
+                                </label>
+
+                                <input type="text" name="department_id" readonly
+                                    value="{{ $employee->department->nama_departemen }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="position_id" class="w-40 font-medium">
+                                    Position:
+                                </label>
+
+                                <input type="text" name="position_id" readonly
+                                    value="{{ $employee->position->nama_jabatan }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="flex items-center gap-4 mb-2">
+                                <label for="status" class="w-40 font-medium">
+                                    Status:
+                                </label>
+
+                                <input type="text" name="status" readonly value="{{ $employee->status }}"
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="pb-4">
+                            <p class="font-black text-2xl">Salary</p>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="salary" class="w-40 font-medium">
+                                    Basic Salary:
+                                </label>
+
+                                @php
+                                    $salaryData = $employee->salary->first();
+                                    $gajiPokok = $salaryData->gaji_pokok ?? 0;
+                                @endphp
+
+                                Rp {{ number_format($gajiPokok, 0, ',', '.') }}
+                            </div>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="tunjangan" class="w-40 font-medium">
+                                    Allowance:
+                                </label>
+
+                                @php
+                                    $tunjangan = $salaryData->tunjangan ?? 0;
+                                @endphp
+
+                                Rp {{ number_format($tunjangan, 0, ',', '.') }}
+
+                            </div>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="potongan" class="w-40 font-medium">
+                                    Cut:
+                                </label>
+
+                                @php
+                                    $potongan = $salaryData->potongan ?? 0;
+                                @endphp
+
+                                Rp {{ number_format($potongan, 0, ',', '.') }}
+                            </div>
+
+                            <div class="flex items-center gap-4 mt-4">
+                                <label for="total_gaji" class="w-40 font-medium">
+                                    Total Salary:
+                                </label>
+
+                                @php
+                                    $salaryData = $employee->salary->first();
+
+                                    $gaji_pokok = $salaryData->gaji_pokok ?? 0;
+                                    $tunjangan = $salaryData->tunjangan ?? 0;
+                                    $potongan = $salaryData->potongan ?? 0;
+
+                                    $total_gaji = $gaji_pokok + $tunjangan - $potongan;
+                                @endphp
+
+                                Rp {{ number_format($total_gaji, 0, ',', '.') }}
+                            </div>
+                        </div>
+
+                        <div class="py-4">
+                            <p class="font-black text-2xl">Data Info</p>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="created_at" class="w-40 font-medium">
+                                    Created At:
+                                </label>
+
+                                <p>{{ $employee->created_at }}</p>
+                            </div>
+
+                            <div class="flex items-center gap-4 my-4">
+                                <label for="updated_at" class="w-40 font-medium">
+                                    Updated At:
+                                </label>
+
+                                <p>{{ $employee->updated_at }}</p>
+                            </div>
+                        </div>
+
+                        <div class="justify-center">
+                            <a href="{{ url('/employees') }}"
+                                class="px-[35rem] py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                                Cancel
+                            </a>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <footer class="footer text-center" style="margin-top: 6rem;">
-                <div class="container">
-                    <p class="mb-0">&copy; {{ date('Y') }} <strong>App Pegawai</strong>. All rights reserved.</p>
-                    <small>Developed by Aisha Zarrah </small>
-                </div>
-            </footer>
-        </section>
-
+        </div>
+        <script src="{{ asset('js/script.js') }}"></script>
     </main>
-
-    <script src="{{ asset('js/script.js') }}"></script>
-</body>
-
-</html>
+</x-app-layout>
